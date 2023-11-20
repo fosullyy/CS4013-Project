@@ -112,10 +112,5 @@ public class Student {
         String roundedQca = String.format("%.2f", qca);
         return Double.parseDouble(roundedQca);
     }
-
-        double qca = total / moduleNumber;
-        String roundedQca = String.format("%.2f", qca);
-        return Double.parseDouble(roundedQca);
-    }
 }
 
