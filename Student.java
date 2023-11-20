@@ -60,7 +60,13 @@ public class Student {
         results.add(result);
     }
 
-    public double calculateQCA(ArrayList<String> grades) {
+    public double calculateQCA(ArrayList<Result> results) {
+        ArrayList<String> grades = new ArrayList<>();
+
+        for (Result result : results) {
+            grades.add(result.getGrade());
+        }
+        
         double total = 0.0;
         int moduleNumber = grades.size();
 
@@ -101,6 +107,11 @@ public class Student {
                     break;
             }
         }
+
+        double qca = total / moduleNumber;
+        String roundedQca = String.format("%.2f", qca);
+        return Double.parseDouble(roundedQca);
+    }
 
         double qca = total / moduleNumber;
         String roundedQca = String.format("%.2f", qca);
