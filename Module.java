@@ -7,7 +7,8 @@ public class Module extends Programme {
     public Module(String departmentName, String departmentId, ArrayList<Programme> programmes,
                   String programmeName, String programmeId, ArrayList<Module> modules,
                   String moduleName, String moduleId) {
-        super(programmeName, programmeId, modules);
+        super(departmentName, departmentId, programmes, programmeName, 
+                programmeId, modules);
         this.moduleName = moduleName;
         this.moduleId = moduleId;
     }
