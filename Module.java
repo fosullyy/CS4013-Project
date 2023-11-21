@@ -4,10 +4,10 @@ public class Module extends Programme {
     private String moduleName;
     private String moduleId;
 
-    public Module(String departmentName, String departmentId, ArrayList<Programme> programmes,
+    public Module(String departmentName, ArrayList<Programme> programmes,
                   String programmeName, String programmeId, ArrayList<Module> modules,
                   String moduleName, String moduleId) {
-        super(departmentName, departmentId, programmes, programmeName, 
+        super(departmentName, programmes, programmeName,
                 programmeId, modules);
         this.moduleName = moduleName;
         this.moduleId = moduleId;
