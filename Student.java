@@ -13,7 +13,7 @@ public class Student {
         this.id = id;
         this.programme = programme;
         this.year = year;
-        this.results = new ArrayList<>();
+        this.results = results;
     }
 
     public String getStudentName() {
@@ -60,13 +60,17 @@ public class Student {
         results.add(result);
     }
 
+    public Transcript viewTranscript(Student student) {
+        return new Transcript(student);
+    }
+
     public double calculateQCA(ArrayList<Result> results) {
         ArrayList<String> grades = new ArrayList<>();
 
         for (Result result : results) {
             grades.add(result.getGrade());
         }
-        
+
         double total = 0.0;
         int moduleNumber = grades.size();
 
@@ -113,4 +117,5 @@ public class Student {
         return Double.parseDouble(roundedQca);
     }
 }
+
 
