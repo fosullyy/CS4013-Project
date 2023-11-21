@@ -5,9 +5,9 @@ public class Programme extends Department {
     private String programmeId;
     private ArrayList<Module> modules;
 
-    public Programme(String departmentName, String departmentId, ArrayList<Programme> programmes,
+    public Programme(String departmentName, ArrayList<Programme> programmes,
                      String programmeName, String programmeId, ArrayList<Module> modules) {
-        super(departmentName, departmentId, programmes);
+        super(departmentName, programmes);
         this.programmeName = programmeName;
         this.programmeId = programmeId;
         this.modules = modules;
@@ -37,3 +37,4 @@ public class Programme extends Department {
         this.modules = modules;
     }
 }
+
