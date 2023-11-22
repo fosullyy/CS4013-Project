@@ -1,16 +1,14 @@
 import java.util.ArrayList;
 
-public class Module extends Programme {
+public class Module {
     private String moduleName;
     private String moduleId;
+    private int credits;
 
-    public Module(String departmentName, ArrayList<Programme> programmes,
-                  String programmeName, String programmeId, ArrayList<Module> modules,
-                  String moduleName, String moduleId) {
-        super(departmentName, programmes, programmeName,
-                programmeId, modules);
+    public Module(String moduleName, String moduleId, int credits) {
         this.moduleName = moduleName;
         this.moduleId = moduleId;
+        this.credits = credits;
     }
 
     public String getModuleName() {
@@ -28,4 +26,13 @@ public class Module extends Programme {
     public void setModuleId(String moduleId) {
         this.moduleId = moduleId;
     }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
 }
+
