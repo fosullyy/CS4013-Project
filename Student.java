@@ -1,27 +1,29 @@
 import java.util.ArrayList;
 
 public class Student {
-    private String studentName;
+    private String name;
     private int id;
     private Programme programme;
     private int year;
     private ArrayList<Result> results;
+    private ArrayList<Module> modules;
 
-    public Student(String studentName, int id, Programme programme, int year,
-                   ArrayList<Result> results) {
-        this.studentName = studentName;
+    public Student(String name, int id, Programme programme, int year,
+                   ArrayList<Result> results, ArrayList<Module> modules) {
+        this.name = name;
         this.id = id;
         this.programme = programme;
         this.year = year;
         this.results = results;
+        this.modules = modules;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getName() {
+        return name;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -54,6 +56,14 @@ public class Student {
 
     public void setResults(ArrayList<Result> results) {
         this.results = results;
+    }
+
+    public ArrayList<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(ArrayList<Module> modules) {
+        this.modules = modules;
     }
 
     public void addResult(Result result) {
@@ -117,5 +127,3 @@ public class Student {
         return Double.parseDouble(roundedQca);
     }
 }
-
-
