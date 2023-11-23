@@ -7,8 +7,8 @@ public class Faculty {
 
     public Faculty(String name, ArrayList<Module> modules, ArrayList<Programme> programmes) {
         this.name = name;
-        this.modules = modules;
-        this.programmes = programmes;
+        this.modules = new ArrayList<>();
+        this.programmes = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,6 +33,14 @@ public class Faculty {
 
     public void setProgrammes(ArrayList<Programme> programmes) {
         this.programmes = programmes;
+    }
+
+    public void addModule(Module module) {
+        modules.add(module);
+    }
+
+    public void addProgramme(Programme programme) {
+        programmes.add(programme);
     }
 
     public void submitResults(Student student, ArrayList<Result> results) {
