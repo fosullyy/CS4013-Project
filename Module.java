@@ -11,6 +11,10 @@ public class Module {
         this.credits = credits;
     }
 
+    public Module(String moduleName){
+        this.moduleName = moduleName;
+    }
+
     public String getModuleName() {
         return moduleName;
     }
