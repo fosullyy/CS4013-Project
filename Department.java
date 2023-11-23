@@ -8,8 +8,8 @@ public class Department {
     public Department(String departmentName, ArrayList<Programme> programmes,
                       ArrayList<Student> students) {
         this.departmentName = departmentName;
-        this.programmes = programmes;
-        this.students = students;
+        this.programmes = new ArrayList<>();
+        this.students = new ArrayList<>();
     }
 
     public String getDepartmentName() {
@@ -34,6 +34,10 @@ public class Department {
 
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
+    }
+
+    public void addProgramme(Programme programme) {
+        programmes.add(programme);
     }
 
     public void addStudent(Student student) {
