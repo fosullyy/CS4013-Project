@@ -3,12 +3,10 @@ import java.util.ArrayList;
 public class Faculty {
     private String name;
     private ArrayList<Module> modules;
-    private ArrayList<Programme> programmes;
 
-    public Faculty(String name, ArrayList<Module> modules, ArrayList<Programme> programmes) {
+    public Faculty(String name, ArrayList<Module> modules) {
         this.name = name;
         this.modules = new ArrayList<>();
-        this.programmes = new ArrayList<>();
     }
 
     public String getName() {
@@ -27,20 +25,8 @@ public class Faculty {
         this.modules = modules;
     }
 
-    public ArrayList<Programme> getProgrammes() {
-        return programmes;
-    }
-
-    public void setProgrammes(ArrayList<Programme> programmes) {
-        this.programmes = programmes;
-    }
-
     public void addModule(Module module) {
         modules.add(module);
-    }
-
-    public void addProgramme(Programme programme) {
-        programmes.add(programme);
     }
 
     public void submitResults(Student student, ArrayList<Result> results) {
