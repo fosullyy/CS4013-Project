@@ -4,13 +4,11 @@ public class Faculty {
     private String name;
     private ArrayList<Module> modules;
     private ArrayList<Programme> programmes;
-    private Department department;
 
-    public Faculty(String name, ArrayList<Module> modules, ArrayList<Programme> programmes, Department department) {
+    public Faculty(String name, ArrayList<Module> modules, ArrayList<Programme> programmes) {
         this.name = name;
         this.modules = modules;
         this.programmes = programmes;
-        this.department = department;
     }
 
     public String getName() {
@@ -37,14 +35,6 @@ public class Faculty {
         this.programmes = programmes;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
     public void submitResults(Student student, ArrayList<Result> results) {
         for (Result result : results) {
             student.addResult(result);
@@ -55,4 +45,3 @@ public class Faculty {
         return new Transcript(student);
     }
 }
-
