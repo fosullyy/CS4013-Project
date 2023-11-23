@@ -75,56 +75,19 @@ public class Student {
     }
 
     public double calculateQcaOverall() {
-        ArrayList<String> grades = new ArrayList<>();
-
-        for (Result result : results) {
-            grades.add(result.getGrade());
-        }
-
-        double total = 0.0;
-        int moduleNumber = grades.size();
-
-        for (String grade : grades) {
-            switch (grade.toUpperCase()) {
-                case "A1":
-                    total += 4.0;
-                    break;
-                case "A2":
-                    total += 3.6;
-                    break;
-                case "B1":
-                    total += 3.2;
-                    break;
-                case "B2":
-                    total += 3.0;
-                    break;
-                case "B3":
-                    total += 2.8;
-                    break;
-                case "C1":
-                    total += 2.6;
-                    break;
-                case "C2":
-                    total += 2.4;
-                    break;
-                case "C3":
-                    total += 2.0;
-                    break;
-                case "D1":
-                    total += 1.6;
-                    break;
-                case "D2":
-                    total += 1.2;
-                    break;
-                case "F", "NG":
-                    total += 0.0;
-                    break;
+        if (years.length == 1) {
+            return calculateQcaForYear(1);
+        } else {
+            double totalQCA = 0.0;
+            for (Year year : years) {
+                totalQCA += calculateQcaForYear(year.getYearNumber());
+                totalQCA = totalQCA - calculateQcaForYear(1);
             }
-        }
 
-        double qca = total / moduleNumber;
-        String roundedQca = String.format("%.2f", qca);
-        return Double.parseDouble(roundedQca);
+            double toBeRounded = totalQCA / (years.length - 1);
+            String roundedQca = String.format("%.2f", toBeRounded);
+            return Double.parseDouble(roundedQca);
+        }
     }
 
     public double calculateQcaForSemester(int semester) {
@@ -136,50 +99,7 @@ public class Student {
             }
         }
 
-        double total = 0.0;
-        int moduleNumber = grades.size();
-
-        for (String grade : grades) {
-            switch (grade.toUpperCase()) {
-                case "A1":
-                    total += 4.0;
-                    break;
-                case "A2":
-                    total += 3.6;
-                    break;
-                case "B1":
-                    total += 3.2;
-                    break;
-                case "B2":
-                    total += 3.0;
-                    break;
-                case "B3":
-                    total += 2.8;
-                    break;
-                case "C1":
-                    total += 2.6;
-                    break;
-                case "C2":
-                    total += 2.4;
-                    break;
-                case "C3":
-                    total += 2.0;
-                    break;
-                case "D1":
-                    total += 1.6;
-                    break;
-                case "D2":
-                    total += 1.2;
-                    break;
-                case "F", "NG":
-                    total += 0.0;
-                    break;
-            }
-        }
-
-        double qca = total / moduleNumber;
-        String roundedQca = String.format("%.2f", qca);
-        return Double.parseDouble(roundedQca);
+        return calculateQca(grades);
     }
 
     public double calculateQcaForYear(int year) {
@@ -191,6 +111,10 @@ public class Student {
             }
         }
 
+        return calculateQca(grades);
+    }
+
+    private double calculateQca(ArrayList<String> grades) {
         double total = 0.0;
         int moduleNumber = grades.size();
 
