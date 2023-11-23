@@ -14,8 +14,8 @@ public class Student {
         this.id = id;
         this.programme = programme;
         this.years = years;
-        this.results = results;
-        this.modules = modules;
+        this.results = new ArrayList<>();
+        this.modules = new ArrayList<>();
     }
 
     public String getName() {
@@ -68,6 +68,10 @@ public class Student {
 
     public void addResult(Result result) {
         results.add(result);
+    }
+
+    public void addModule(Module module) {
+        modules.add(module);
     }
 
     public Transcript viewTranscript(Student student) {
