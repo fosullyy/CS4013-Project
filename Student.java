@@ -5,17 +5,23 @@ public class Student {
     private int id;
     private Programme programme;
     private Year[] years;
+    private int numOfYears;
     private ArrayList<Result> results;
     private ArrayList<Module> modules;
 
-    public Student(String name, int id, Programme programme, Year[] years,
+    public Student(String name, int id, Programme programme, int numOfYears,
                    ArrayList<Result> results, ArrayList<Module> modules) {
         this.name = name;
         this.id = id;
         this.programme = programme;
-        this.years = years;
+        this.numOfYears = numOfYears;
+        this.years = new Year[numOfYears];
         this.results = new ArrayList<>();
         this.modules = new ArrayList<>();
+
+        for (int i = 0; i < numOfYears; i++) {
+            this.years[i] = new Year(i + 1);
+        }
     }
 
     public String getName() {
@@ -48,6 +54,14 @@ public class Student {
 
     public void setYears(Year[] years) {
         this.years = years;
+    }
+
+    public int getNumOfYears() {
+        return numOfYears;
+    }
+
+    public void setNumOfYears(int numOfYears) {
+        this.numOfYears = numOfYears;
     }
 
     public ArrayList<Result> getResults() {
