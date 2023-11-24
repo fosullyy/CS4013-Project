@@ -68,23 +68,23 @@ public class MenuApp {
             }//end student while
         } else {
             while (!quitCon) {
-                System.out.println("\n\nSTAFF MENU\n1) Grades\n234 FOR TESTING : Q TO QUIT");
+                System.out.println("\n\nSTAFF MENU\n1) Grades\n234 FOR TESTING : 9 TO QUIT");
                 String command = in.nextLine().toUpperCase();
 
                 switch (command) {
-                    case "A":
+                    case "1":
                         staffGradeMenu();
                         break;
-                    case "B":
+                    case "2":
                         System.out.println("STAFF 2");
                         break;
-                    case "C":
+                    case "3":
                         System.out.println("STAFF 3");
                         break;
-                    case "D":
+                    case "4":
                         System.out.println("STAFF 4");
                         break;
-                    case "Q":
+                    case "9":
                         System.out.println("STAFF QUIT");
                         quitCon = true;
                         System.exit(0);
