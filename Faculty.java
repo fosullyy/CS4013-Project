@@ -2,10 +2,12 @@ import java.util.ArrayList;
 
 public class Faculty {
     private String name;
+    private Department department;
     private ArrayList<Module> modules;
 
-    public Faculty(String name, ArrayList<Module> modules) {
+    public Faculty(String name, Department department, ArrayList<Module> modules) {
         this.name = name;
+        this.department = department;
         this.modules = new ArrayList<>();
     }
 
@@ -15,6 +17,14 @@ public class Faculty {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public ArrayList<Module> getModules() {
