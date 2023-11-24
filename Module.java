@@ -38,5 +38,15 @@ public class Module {
     public void setCredits(int credits) {
         this.credits = credits;
     }
+
+    public Module findModuleById(String moduleId, ArrayList<Module> bookOfModules) {
+        for (Module module : bookOfModules) {
+            if (module.getModuleId().equalsIgnoreCase(moduleId)) {
+                return module;
+            }
+        }
+        System.out.println("Module not found.");
+        return null;
+    }
 }
 
