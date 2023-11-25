@@ -1,66 +1,50 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a programme (or course) within UL.
+ */
 public class Programme {
     private String programmeName;
     private String programmeId;
     private Department department;
-    private ArrayList<Module> modules;
-    private ArrayList<Student> students;
 
+    /**
+     * Constructs Programme object with its name, ID and the department it belongs to.
+     * @param programmeName The name of the programme.
+     * @param programmeId The ID of the programme
+     * @param department The department the programme belongs to.
+     */
     public Programme(String programmeName, String programmeId, Department department,
-                     ArrayList<Module> modules, ArrayList<Student> students) {
+                     ArrayList<Student> students) {
         this.programmeName = programmeName;
         this.programmeId = programmeId;
         this.department = department;
-        this.modules = new ArrayList<>();
-        this.students = new ArrayList<>();
     }
 
+    /**
+     * Gets the name of the programme.
+     *
+     * @return The name of the programme.
+     */
     public String getProgrammeName() {
         return programmeName;
     }
 
-    public void setProgrammeName(String programmeName) {
-        this.programmeName = programmeName;
-    }
-
+    /**
+     * Gets the ID of the programme.
+     *
+     * @return The ID of the programme.
+     */
     public String getProgrammeId() {
         return programmeId;
     }
 
-    public void setProgrammeId(String programmeId) {
-        this.programmeId = programmeId;
-    }
-
+    /**
+     * Gets the department of the programme.
+     *
+     * @return The department of the programme.
+     */
     public Department getDepartment() {
         return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public ArrayList<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(ArrayList<Module> modules) {
-        this.modules = modules;
-    }
-
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
-    }
-
-    public void addModule(Module module) {
-        modules.add(module);
-    }
-
-    public void addStudent(Student student) {
-        students.add(student);
     }
 }
