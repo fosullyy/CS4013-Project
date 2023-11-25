@@ -18,7 +18,7 @@ public class Transcript{
         this.student = student;
     }
     public String toString(){
-        return "Student ID: " + student.getId() + "\n" + "Student Name: " + student.getName() + "\n" + printModules(student.getModules())
+        return "Student ID: " + student.getId() + "\n" + "Student Name: " + student.getName() + "\n" + printModules(student.getModules());
 
     }
 

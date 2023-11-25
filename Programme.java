@@ -15,6 +15,10 @@ public class Programme {
         this.modules = new ArrayList<>();
         this.students = new ArrayList<>();
     }
+    //Used in csv file to read Name of programme student is doing
+    public Programme(String programmeName){
+        this.programmeName = programmeName;
+    }
 
     public String getProgrammeName() {
         return programmeName;
