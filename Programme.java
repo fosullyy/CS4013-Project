@@ -1,23 +1,17 @@
-import java.util.ArrayList;
-
 /**
  * Represents a programme (or course) within UL.
  */
 public class Programme {
     private String programmeName;
-    private String programmeId;
     private Department department;
 
     /**
-     * Constructs Programme object with its name, ID and the department it belongs to.
+     * Constructs Programme object with its name and the department it belongs to.
      * @param programmeName The name of the programme.
-     * @param programmeId The ID of the programme
      * @param department The department the programme belongs to.
      */
-    public Programme(String programmeName, String programmeId, Department department,
-                     ArrayList<Student> students) {
+    public Programme(String programmeName, Department department) {
         this.programmeName = programmeName;
-        this.programmeId = programmeId;
         this.department = department;
     }
 
@@ -28,15 +22,6 @@ public class Programme {
      */
     public String getProgrammeName() {
         return programmeName;
-    }
-
-    /**
-     * Gets the ID of the programme.
-     *
-     * @return The ID of the programme.
-     */
-    public String getProgrammeId() {
-        return programmeId;
     }
 
     /**
