@@ -23,7 +23,7 @@ public class StudentCsv {
 
     public ArrayList<Student> readStudents(String filepath) {
         ArrayList<Student>students = new ArrayList<>();
-        BufferedReader reader = null;
+        BufferedReader reader;
         String line = "";
 
         try {
@@ -64,17 +64,18 @@ public class StudentCsv {
     }
 
     public void deleteStudent(String filepath, String idToRemove){
-        Scanner scanner;
+
         String tempFile = "temp.csv";
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
-        //These are just in place not final change away if you want
-        String name = ""; String id = ""; String programmeName = ""; String year = "";
+        //Not final
+        String name = ""; String id = ""; String programmeName = ""; String year = ""; String moduleName = ""; String moduleId = "";
+        String moduleCredits = ""; String grade = ""; String resultYear = ""; String resultSemester = "";
         try{
+            Scanner scanner = new Scanner(oldFile);
             FileWriter fw = new FileWriter(tempFile,true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            scanner = new Scanner(new File(filepath));
             //Knows a new term or data is after new line \n or ,
             scanner.useDelimiter("[,\n]");
 
@@ -83,8 +84,15 @@ public class StudentCsv {
                 id = scanner.next();
                 programmeName = scanner.next();
                 year = scanner.next();
+                moduleName = scanner.next();
+                moduleId = scanner.next();
+                moduleCredits = scanner.next();
+                grade = scanner.next();
+                resultYear = scanner.next();
+                resultSemester = scanner.next();
                 if(!id.equals(idToRemove)){
-                    pw.println(name + "," + id + "," + programmeName + "," + year);
+                    pw.println(name + "," + id + "," + programmeName + "," + year + "," + moduleName + "," + moduleId + "," + moduleCredits + ","
+                    + grade + "," + resultYear + "," + resultSemester);
                 }
             }
             scanner.close();
@@ -93,10 +101,11 @@ public class StudentCsv {
             oldFile.delete();
             File dump = new File(filepath);
             newFile.renameTo(dump);
-
-        }catch (Exception e){
+        }catch (IOException e){
+            e.printStackTrace();
 
         }
+
 
     }
 }
