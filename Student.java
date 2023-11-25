@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a student of the university.
+ */
 public class Student {
     private String name;
     private int id;
@@ -7,87 +10,107 @@ public class Student {
     private Year[] years;
     private int numOfYears;
     private ArrayList<Result> results;
-    private ArrayList<Module> modules;
 
+    /**
+     * Constructs Student object with its name, ID, programme, the year the student is currently in, and the student's results to date.
+     * @param name The name of the student.
+     * @param id The ID of the student.
+     * @param programme The programme of the student.
+     * @param numOfYears The year the student is currently in.
+     * @param results A list of the student's results achieved so far.
+     */
     public Student(String name, int id, Programme programme, int numOfYears,
-                   ArrayList<Result> results, ArrayList<Module> modules) {
+                   ArrayList<Result> results) {
         this.name = name;
         this.id = id;
         this.programme = programme;
         this.numOfYears = numOfYears;
         this.years = new Year[numOfYears];
         this.results = new ArrayList<>();
-        this.modules = new ArrayList<>();
 
         for (int i = 0; i < numOfYears; i++) {
             this.years[i] = new Year(i + 1);
         }
     }
 
+    /**
+     * Gets the name of the student.
+     *
+     * @return The name of the student.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Gets the ID of the student.
+     *
+     * @return The ID of the student.
+     */
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    /**
+     * Gets the programme of the student.
+     *
+     * @return The programme of the student.
+     */
     public Programme getProgramme() {
         return programme;
     }
 
+    /**
+     * Sets the programme of the student.
+     *
+     * @param programme The new programme of the student.
+     */
     public void setProgramme(Programme programme) {
         this.programme = programme;
     }
 
+    /**
+     * Gets the array of the years for which the student has attended, storing a year object in each slot for however many years they've attended for.
+     *
+     * @return The array of years of attendance of the student.
+     */
     public Year[] getYears() {
         return years;
     }
 
-    public void setYears(Year[] years) {
-        this.years = years;
-    }
-
+    /**
+     * Gets the number of years for which the student has attended.
+     *
+     * @return The number of years of attendance for the student.
+     */
     public int getNumOfYears() {
         return numOfYears;
     }
 
-    public void setNumOfYears(int numOfYears) {
-        this.numOfYears = numOfYears;
-    }
-
+    /**
+     * Gets the results of the student.
+     * 
+     * @return A list of the results of the student.
+     */
     public ArrayList<Result> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Result> results) {
-        this.results = results;
-    }
-
-    public ArrayList<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(ArrayList<Module> modules) {
-        this.modules = modules;
-    }
-
+    /**
+     * Adds a result to the student's list of student results.
+     * 
+     * @param result The result to be added to the student's results.
+     */
     public void addResult(Result result) {
         results.add(result);
     }
 
-    public void addModule(Module module) {
-        modules.add(module);
-    }
-
+    /**
+     * Allows a student to view their student transcript, which displays their results for each semester.
+     * 
+     * @param student The student whose transcript is to be viewed.
+     * @return The student transcript of the student.
+     */
     public Transcript viewTranscript(Student student) {
         return new Transcript(student);
     }
