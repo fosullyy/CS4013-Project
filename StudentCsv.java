@@ -37,7 +37,7 @@ public class StudentCsv {
                     Programme programme = new Programme(studentData[2].trim());
                     int year = Integer.parseInt(studentData[3].trim());
 
-                    Student student = new Student(studentName, id, programme, year, new ArrayList<>(), new ArrayList<>());
+                    Student student = new Student(studentName, id, programme, year, new ArrayList<>());
 
                     for (int i = 4; i < studentData.length; i += 3) {
                         String moduleName = studentData[i].trim();
@@ -48,7 +48,6 @@ public class StudentCsv {
                         int resultSemester = Integer.parseInt(studentData[i + 5].trim());
 
                         Module module = new Module(moduleName, moduleId, moduleCredits);
-                        student.addModule(module);
 
                         Result result = new Result(module, grade, new Semester(resultYear, resultSemester));
                         student.addResult(result);
@@ -67,16 +66,16 @@ public class StudentCsv {
     public void deleteStudent(String filepath, String idToRemove){
         Scanner scanner;
         String tempFile = "temp.csv";
-        String line = "";
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
+        //These are just in place not final change away if you want
         String name = ""; String id = ""; String programmeName = ""; String year = "";
         try{
             FileWriter fw = new FileWriter(tempFile,true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             scanner = new Scanner(new File(filepath));
-            //Knows a new term or data is after new line or ,
+            //Knows a new term or data is after new line \n or ,
             scanner.useDelimiter("[,\n]");
 
             while(scanner.hasNext()){
