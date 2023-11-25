@@ -1,66 +1,81 @@
-import java.util.ArrayList;
-
-public class Transcript{
+/**
+ * Represents transcript for a given student.
+ */
+public class Transcript {
 
     private Student student;
-    private int ID;
-    private String Name;
-    private String moduleName;
 
+    /**
+     * Constructs Transcript object which takes the student for whom the transcript is being generated.
+     * 
+     * @param student The student who the transcript belongs to.
+     */
     public Transcript(Student student) {
         this.student = student;
     }
+
+    /**
+     * Gets the student who the transcript belongs to.
+     * 
+     * @return The student who the transcript belongs to.
+     */
     public Student getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-    public String toString(){
-        return "Student ID: " + student.getId() + "\n" + "Student Name: " + student.getName() + "\n" + printModules(student.getModules());
+    /**
+     * toString method which returns the student's transcript in a legible form.
+     * 
+     * @return The student's transcript represented as a string.
+     */
+    @Override
+    public String toString() {
+        StringBuilder transcript = new StringBuilder();
+        transcript.append(student.getName()).append("'s student transcript\nID: ").append(student.getId()).append("\n");
 
-    }
+        int semCount = 0;
 
-    public String printModules(ArrayList<Module> modules) {
-        StringBuilder someModules = new StringBuilder();
-        for (Module module : modules) {
-            someModules.append("Module Name: " + module.getModuleName() + "\nModule ID: " + module.getModuleName() + "Module Credits: " + module.getCredits());
+        for (int i = 0; i < student.getNumOfYears(); i++) {
+            Year year = student.getYears()[i];
+            transcript.append("\nYear: ").append(year.getYearNumber()).append("\n:");
+
+            for (int j = 0; j <= 2; j++) {
+                Semester semester;
+
+                if (j == 1) {
+                    semester = year.getSemester1();
+                } else {
+                    semester = year.getSemester2();
+                }
+
+                transcript.append("\nSemester ").append(semester.getSemNumber()).append(":\n");
+                double semesterQca = student.calculateQcaForSemester(semester.getSemNumber());
+
+                for (Result result : student.getResults()) {
+                    if (result.getSemester().getSemNumber() == semester.getSemNumber()) {
+                        transcript.append(result.getModule().getModuleId()).append("\t")
+                                .append(result.getModule().getModuleName()).append("\t")
+                                .append(result.getModule().getCredits()).append("\t")
+                                .append(result.getGrade()).append("\n");
+                    }
+                }
+
+                transcript.append("Semester ").append(semester.getSemNumber()).append(" QCA: ")
+                        .append(semesterQca).append("\n");
+
+                if (j == 2) {
+                    double yearQCA = student.calculateQcaForYear(year.getYearNumber());
+                    transcript.append("Year ").append(year.getYearNumber()).append(" QCA: ")
+                            .append(yearQCA).append("\n");
+                }
+
+                semCount++;
+            }
         }
 
-        return someModules.toString();
+        double overallQca = student.calculateQcaOverall();
+        transcript.append("Overall QCA: ").append(overallQca).append("\n");
+        
+        return transcript.toString();
     }
-    public void viewModuleResults(ArrayList<Module> modules, ArrayList<Result> results) {
-        for (Module module : modules) {
-            System.out.println("Module: " + module.getModuleName());
-            System.out.println("Results:");
-
-            for (Result result : results) {
-                if (result.getModule().equals(module)) {
-                    System.out.println("  " + result.getGrade() + " - Semester " +
-                            result.getSemester().getSemNumber());
-                }
-            }
-
-    class Test {
-        public static void main(String[] args) {
-            int borderWidth = 80;
-            int borderHeight = 10;
-
-
-            System.out.println("+" + "-".repeat(borderWidth - 2) + "+");
-
-            for (int i = 0; i < borderHeight; i++) {
-
-                System.out.println("|" + " ".repeat(borderWidth - 4) + "|" + " ".repeat(1));
-                {
-
-                    System.out.println("|" + " ".repeat(borderWidth - 2) + "|");
-                }
-            }
-
-            System.out.println("+" + "-".repeat(borderWidth - 2) + "+");
-        }
-    }
-
 }
