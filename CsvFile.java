@@ -191,6 +191,16 @@ public class CsvFile {
         return null;
     }
 
+    public Faculty findFacultyByName(String name, ArrayList<Faculty> faculties) {
+        for (Faculty faculty : faculties) {
+            if (faculty.getName().equalsIgnoreCase(name)) {
+                return faculty;
+            }
+        }
+        System.out.println("Faculty member not found.");
+        return null;
+    }
+
     public void addStudentsToDepartments(ArrayList<Student> students) {
         for (Student student : students) {
             for (Result result : student.getResults()) {
