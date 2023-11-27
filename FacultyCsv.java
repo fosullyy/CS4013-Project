@@ -15,7 +15,7 @@ public class FacultyCsv {
 
                 //Go through the modules array and split the info
                 for(Module module : faculties.getModules()){
-                    bw.write(module.getDepartment().getDepartmentName() + "," + module.getModuleName() + "," + module.getModuleId() + "," + module.getCredits() + "\n");
+                    bw.write(module.getModuleId() + ";");
                 }
             }
             bw.close();
