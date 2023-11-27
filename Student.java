@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 /**
- * Represents a student of the university.
+ * Represents a student of UL.
  */
 public class Student {
     private String name;
     private int id;
-    private Programme programme;
+    private String programmeName;
     private Year[] years;
     private int numOfYears;
     private ArrayList<Result> results;
@@ -15,15 +15,13 @@ public class Student {
      * Constructs Student object with its name, ID, programme, the year the student is currently in, and the student's results to date.
      * @param name The name of the student.
      * @param id The ID of the student.
-     * @param programme The programme of the student.
+     * @param programmeName The programme name of the student.
      * @param numOfYears The year the student is currently in.
-     * @param results A list of the student's results achieved so far.
      */
-    public Student(String name, int id, Programme programme, int numOfYears,
-                   ArrayList<Result> results) {
+    public Student(String name, int id, String programmeName, int numOfYears) {
         this.name = name;
         this.id = id;
-        this.programme = programme;
+        this.programmeName = programmeName;
         this.numOfYears = numOfYears;
         this.years = new Year[numOfYears];
         this.results = new ArrayList<>();
@@ -56,8 +54,8 @@ public class Student {
      *
      * @return The programme of the student.
      */
-    public Programme getProgramme() {
-        return programme;
+    public String getProgrammeName() {
+        return programmeName;
     }
 
     /**
@@ -65,8 +63,8 @@ public class Student {
      *
      * @param programme The new programme of the student.
      */
-    public void setProgramme(Programme programme) {
-        this.programme = programme;
+    public void setProgramme(String programmeName) {
+        this.programmeName = programmeName;
     }
 
     /**
@@ -88,8 +86,21 @@ public class Student {
     }
 
     /**
+     * Sets the number of years for which the student has attended, and changes the Years[] array as a result.
+     *
+     * @param numOfYears The new number of years of attendance for the student.
+     */
+    public void setNumOfYears(int numOfYears) {
+        this.numOfYears = numOfYears;
+
+        for (int i = 0; i < numOfYears; i++) {
+            this.years[i] = new Year(i + 1);
+        }
+    }
+
+    /**
      * Gets the results of the student.
-     * 
+     *
      * @return A list of the results of the student.
      */
     public ArrayList<Result> getResults() {
@@ -98,7 +109,7 @@ public class Student {
 
     /**
      * Adds a result to the student's list of student results.
-     * 
+     *
      * @param result The result to be added to the student's results.
      */
     public void addResult(Result result) {
@@ -107,7 +118,7 @@ public class Student {
 
     /**
      * Allows a student to view their student transcript, which displays their results for each semester.
-     * 
+     *
      * @param student The student whose transcript is to be viewed.
      * @return The student transcript of the student.
      */
@@ -155,7 +166,7 @@ public class Student {
         return calculateQca(grades);
     }
 
-    private double calculateQca(ArrayList<String> grades) {
+    public double calculateQca(ArrayList<String> grades) {
         double total = 0.0;
         int moduleNumber = grades.size();
 
