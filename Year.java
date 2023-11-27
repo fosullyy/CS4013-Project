@@ -13,8 +13,8 @@ public class Year {
      */
     public Year(int yearNumber) {
         this.yearNumber = yearNumber;
-        this.semester1 = new Semester(yearNumber, (2 * yearNumber) - 1);
-        this.semester2 = new Semester(yearNumber, (2 * yearNumber));
+        this.semester1 = new Semester((2 * yearNumber) - 1);
+        this.semester2 = new Semester((2 * yearNumber));
     }
 
     /**
