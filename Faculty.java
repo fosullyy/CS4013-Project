@@ -18,7 +18,7 @@ public class Faculty {
     public Faculty(String name, Department department, ArrayList<Module> modules) {
         this.name = name;
         this.department = department;
-        this.modules = new ArrayList<>();
+        this.modules = modules;
     }
 
     /**
