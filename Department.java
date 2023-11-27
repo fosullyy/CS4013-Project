@@ -77,7 +77,7 @@ public class Department {
             board.append("Student ID: ").append(student.getId()).append("\tQCA: ").append(qca);
 
             if (qca < 2.0) {
-                board.append("\tStudent is required to repeat semester.");
+                board.append("\tStudent is required to repeat.");
             } else {
                 board.append("\n");
             }
@@ -101,12 +101,32 @@ public class Department {
             board.append("Student ID: ").append(student.getId()).append("\tQCA: ").append(qca);
 
             if (qca < 2.0) {
-                board.append("\tStudent is required to repeat year.");
+                board.append("\tStudent is required to repeat.");
             } else {
                 board.append("\n");
             }
         }
 
         return board.toString();
+    }
+
+    /**
+     * Adds all students to their departments based on the modules they undertake.
+     * 
+     * @param students An ArrayList of all students in the system.
+     * @param bookOfModules An ArrayList of all modules in the university.
+     */
+    public void addStudentsToDepartments(ArrayList<Student> students, ArrayList<Module> bookOfModules) {
+        for (Student student : students) {
+            for (Result result : student.getResults()) {
+                for (Module module : bookOfModules) {
+                    if (result.getModule().getDepartment().getDepartmentName().equalsIgnoreCase(module.getDepartment().getDepartmentName())) {
+                        addStudent(student);
+                    } else {
+                        System.out.println("Student couldn't be placed in a department.");
+                    }
+                }
+            }
+        }
     }
 }
