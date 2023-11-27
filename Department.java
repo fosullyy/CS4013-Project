@@ -5,20 +5,15 @@ import java.util.ArrayList;
  */
 public class Department {
     private String departmentName;
-    private ArrayList<Programme> programmes;
     private ArrayList<Student> students;
 
     /**
      * Constructs Department object, with its name, programmes and students.
      *
      * @param departmentName Name of the department.
-     * @param programmes Programmes in the department.
-     * @param students Students that belong to programmes in the department.
      */
-    public Department(String departmentName, ArrayList<Programme> programmes,
-                      ArrayList<Student> students) {
+    public Department(String departmentName) {
         this.departmentName = departmentName;
-        this.programmes = new ArrayList<>();
         this.students = new ArrayList<>();
     }
 
@@ -41,24 +36,6 @@ public class Department {
     }
 
     /**
-     * Gets the department's list of programmes.
-     *
-     * @return List of department's programmes.
-     */
-    public ArrayList<Programme> getProgrammes() {
-        return programmes;
-    }
-
-    /**
-     * Sets the department's list of programmes.
-     *
-     * @param programmes New list of department's programmes.
-     */
-    public void setProgrammes(ArrayList<Programme> programmes) {
-        this.programmes = programmes;
-    }
-
-    /**
      * Gets the department's list of students.
      *
      * @return The department's list of students.
@@ -74,15 +51,6 @@ public class Department {
      */
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
-    }
-
-    /**
-     * Adds a programme to the department.
-     *
-     * @param programme The programme to be added.
-     */
-    public void addProgramme(Programme programme) {
-        programmes.add(programme);
     }
 
     /**
