@@ -1,0 +1,38 @@
+Faculty
+	enters faculty name
+	reads faculty csv file with modules for faculty based on the name
+	adds modules to modules array
+	asks faculty what it wants to do; look up transcript or submit a result
+	if look up transcript
+		prompts faculty to enter the student id
+		finds student object according to student id
+		returns student transcript
+	if submit result
+		prompts faculty to enter student id whose result is to be entered
+		enters module id
+		looks up module according to module id in book of modules csv file
+		assigns this module to new result object
+		prompts faculty to enter year of student in question
+		prompts faculty to enter semester number of student in question
+		creates semester object based on these, assigns it to result object
+		prompts faculty to enter grade of student in question
+		assigns grade string to new result object
+		creates result object
+		adds result object to student's results array
+		writes student result to results csv
+	
+Student
+	enters student id
+	reads students csv file with name, id, programme, years, results (actual contents of array to be added) and modules based on name
+	reads results csv file with results, each having a module, grade and semester
+	adds these results to the students' results array
+	prints student transcript
+Department
+	provides list of department
+	select number assigned to department
+	searches back in students csv file whose programme has the department selected
+	collects the ids of those students
+	adds these students to the department's student array list
+	prompts department to enter exam board request, ie semester or year
+	prompts user to enter semester number or year
+	runs hold exam board method according to this
