@@ -5,19 +5,16 @@ import java.util.ArrayList;
  */
 public class Faculty {
     private String name;
-    private Department department;
     private ArrayList<Module> modules;
 
     /**
      * Constructs Faculty object with its name, department and modules.
      *
      * @param name Name of the faculty member.
-     * @param department The department the faculty member belongs to.
      * @param modules The modules the faculty member teaches in.
      */
-    public Faculty(String name, Department department, ArrayList<Module> modules) {
+    public Faculty(String name, ArrayList<Module> modules) {
         this.name = name;
-        this.department = department;
         this.modules = modules;
     }
 
@@ -37,24 +34,6 @@ public class Faculty {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Gets name of the faculty member.
-     *
-     * @return The name of the faculty member.
-     */
-    public Department getDepartment() {
-        return department;
-    }
-
-    /**
-     * Sets department of the faculty member.
-     *
-     * @param department The new department of the faculty member.
-     */
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
     /**
