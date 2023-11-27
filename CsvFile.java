@@ -67,11 +67,10 @@ public class CsvFile {
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             while ((line = reader.readLine()) != null) {
                 String[] facultyData = line.split(",");
-                if (facultyData.length == 3) {
+                if (facultyData.length == 2) {
                     String name = facultyData[0].trim();
-                    Department department = new Department((facultyData[1].trim()));
 
-                    String[] facultyModules = (facultyData[2].trim()).split(";");
+                    String[] facultyModules = (facultyData[1].trim()).split(";");
 
                     ArrayList<Module> modules = new ArrayList<>();
                     for (String moduleId : facultyModules) {
@@ -79,7 +78,7 @@ public class CsvFile {
                         modules.add(module);
                     }
 
-                    Faculty faculty = new Faculty(name, department, modules);
+                    Faculty faculty = new Faculty(name, modules);
                     faculties.add(faculty);
                 } else {
                     System.out.println("Faculty not found on line " + line);

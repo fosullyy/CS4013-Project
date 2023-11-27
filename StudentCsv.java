@@ -12,7 +12,7 @@ public class StudentCsv {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
             for (Student students : student) {
-                writer.write(students.getName() + "," + students.getId() + "," + students.getProgramme().getProgrammeName() + ","
+                writer.write(students.getName() + "," + students.getId() + "," + students.getProgrammeName() + ","
                         + students.getYears() + "," + students.getResults() + "\n");
             }
             writer.close();
@@ -30,40 +30,49 @@ public class StudentCsv {
             reader = new BufferedReader(new FileReader(filepath));
             while ((line = reader.readLine()) != null) {
                 String[] studentData = line.split(",");
-                if (studentData.length >= 6) {
+                if (studentData.length >= 4) {
                     // Trim() removes any blank/white space
                     String studentName = studentData[0].trim();
                     int id = Integer.parseInt(studentData[1].trim());
-                    Programme programme = new Programme(studentData[2].trim());
+                    String programme = studentData[2].trim();
                     int year = Integer.parseInt(studentData[3].trim());
 
-                    Student student = new Student(studentName, id, programme, year, new ArrayList<>());
+                    Student student = new Student(studentName, id, programme, year);
+                    students.add(student);
 
-                    for (int i = 4; i < studentData.length; i += 3) {
-                        String moduleName = studentData[i].trim();
-                        String moduleId = studentData[i + 1].trim();
-                        int moduleCredits = Integer.parseInt(studentData[i + 2].trim());
-                        String grade = studentData[i + 3].trim();
-                        int resultYear = Integer.parseInt(studentData[i + 4].trim());
-                        int resultSemester = Integer.parseInt(studentData[i + 5].trim());
+                    // The i += 5 Jumps the loop 5 positions ahead in the array so i doesnt repeat data
+                    for (int i = 4; i < studentData.length; i += 5) {
+                        //Checks if there is results data for the student before reading file
+                        if(i + 4 < studentData.length){
+                            String departmentName = studentData[i].trim();
+                            String moduleName = studentData[i + 1].trim();
+                            String moduleId = studentData[i + 2].trim();
+                            int moduleCredits = Integer.parseInt(studentData[i + 3].trim());
+                            String grade = studentData[i + 4].trim();
+                            int resultSemester = Integer.parseInt(studentData[i + 5].trim());
 
-                        Module module = new Module(moduleName, moduleId, moduleCredits);
+                            Department department = new Department(departmentName);
 
-                        Result result = new Result(module, grade, new Semester(resultYear, resultSemester));
-                        student.addResult(result);
-                        students.add(student);
+                            Module module = new Module(department, moduleName, moduleId, moduleCredits);
+
+                            Result result = new Result(module, grade, new Semester(resultSemester));
+                            student.addResult(result);
+                        }else{
+                            System.out.println("No results found for student " + line);
+                        }
                     }
+                }else{
+                    System.out.println("Student not found on line " + line);
                 }
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            return students;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
-    public void deleteStudent(String filepath, String idToRemove){
+
+        public void deleteStudent(String filepath, String idToRemove){
 
         String tempFile = "temp.csv";
         File oldFile = new File(filepath);
@@ -109,3 +118,4 @@ public class StudentCsv {
 
     }
 }
+
