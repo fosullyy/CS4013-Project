@@ -1,9 +1,8 @@
-import java.util.ArrayList;
-
 /**
  * Represents a module of UL.
  */
 public class Module {
+    private Department department;
     private String moduleName;
     private String moduleId;
     private int credits;
@@ -11,14 +10,25 @@ public class Module {
     /**
      * Constructs Module object, with its name, ID and credits.
      *
+     * @param department Department of the module.
      * @param moduleName Name of the module.
      * @param moduleId ID of the module.
      * @param credits Credits of the module.
      */
-    public Module(String moduleName, String moduleId, int credits) {
+    public Module(Department department, String moduleName, String moduleId, int credits) {
+        this.department = department;
         this.moduleName = moduleName;
         this.moduleId = moduleId;
         this.credits = credits;
+    }
+
+    /**
+     * Gets the department of the module.
+     *
+     * @return The department of the module.
+     */
+    public Department getDepartment() {
+        return department;
     }
 
     /**
@@ -46,22 +56,5 @@ public class Module {
      */
     public int getCredits() {
         return credits;
-    }
-
-    /**
-     * Finds a module using just its ID, searches through an ArrayList containing all modules.
-     *
-     * @param moduleId ID of requested module.
-     * @param bookOfModules An ArrayList containing all modules.
-     * @return The module object that matches the requested ID.
-     */
-    public Module findModuleById(String moduleId, ArrayList<Module> bookOfModules) {
-        for (Module module : bookOfModules) {
-            if (module.getModuleId().equalsIgnoreCase(moduleId)) {
-                return module;
-            }
-        }
-        System.out.println("Module not found.");
-        return null;
     }
 }
