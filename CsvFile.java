@@ -142,23 +142,14 @@ public class CsvFile {
         }
     }
 
-    public ArrayList<String> allModuleIds(String filepath) {
-        ArrayList<String> allModuleIds = new ArrayList<>();
-        String line;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
-            while ((line = reader.readLine()) != null) {
-                String[] moduleData = line.split(",");
-
-                if (moduleData.length > 0) {
-                    allModuleIds.add(moduleData[0].trim());
-                }
-            }
+    public void writeResult(Student student, Result result, String filepath) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
+            writer.write(student.getId() + "," + result.getModule().getModuleId() + "," +
+                    result.getGrade() + "," + result.getSemester().getSemNumber());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return allModuleIds;
     }
 
     /**
