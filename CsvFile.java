@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CsvFile {
 
@@ -35,6 +37,7 @@ public class CsvFile {
 
     public ArrayList<Module> readModules(String filepath) {
         ArrayList<Module> bookOfModules = new ArrayList<>();
+        Set<String> departments = new HashSet<>();
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
@@ -42,7 +45,16 @@ public class CsvFile {
                 String[] moduleData = line.split(",");
 
                 if (moduleData.length == 4) {
-                    Department department = new Department(moduleData[0].trim());
+                    String departmentName = moduleData[0].trim();
+
+                    // Check if the department already exists
+                    Department department;
+                    if (departments.contains(departmentName)) {
+                        department = new Department(departmentName);
+                    } else {
+                        department = new Department(departmentName);
+                        departments.add(departmentName);
+                    }
                     String moduleId = moduleData[1].trim();
                     String moduleName = moduleData[2].trim();
                     int credits = Integer.parseInt(moduleData[3].trim());
@@ -177,5 +189,19 @@ public class CsvFile {
         }
         System.out.println("Student not found.");
         return null;
+    }
+
+    public void addStudentsToDepartments(ArrayList<Student> students) {
+        for (Student student : students) {
+            for (Result result : student.getResults()) {
+                Module module = result.getModule();
+                if (module != null) {
+                    Department department = module.getDepartment();
+                    if (department != null) {
+                        department.addStudent(student);
+                    }
+                }
+            }
+        }
     }
 }
