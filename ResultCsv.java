@@ -35,7 +35,7 @@ public class ResultCsv {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
             writer.write(student.getId() + "," + result.getModule().getModuleId() + "," +
-                    result.getGrade() + "," + result.getSemester().getSemNumber());
+                    result.getGrade() + "," + result.getSemester().getSemNumber() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
