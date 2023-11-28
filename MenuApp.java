@@ -1,4 +1,6 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class MenuApp {
     private Scanner in;
@@ -14,31 +16,41 @@ public class MenuApp {
         boolean menuType = true;
         boolean menuTypeQuitCon = false;
         boolean back = false;
+        ModuleCsv moduleCsv = new ModuleCsv();
+        StudentCsv studentCsv = new StudentCsv();
+        FacultyCsv facultyCsv = new FacultyCsv();
+        ResultCsv resultCsv = new ResultCsv();
+
+        ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
+        ArrayList<Student> students = studentCsv.readStudents("Students.csv");
+        ArrayList<Faculty> faculties = facultyCsv.readFaculty("Faculty.csv", modules);
+        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
 
         while (!menuTypeQuitCon) {
             System.out.println("1) STUDENT MENU\n2) DEPARTMENT MENU\n3) FACULTY MENU");
-            String command = in.nextLine().toUpperCase();
+            String command = in.nextLine();
             back = false;
             switch (command) {
                 case "1":
-                    System.out.println("Log in using Student ID **use 1 for testing purposes");
+                    System.out.println("Log in using Student ID");
                     while(!back) {
-                        command = in.nextLine().toUpperCase();
-                        if(command.equals("1"))
-                            studentMainMenu();
-                        else if(command.equals("BACK"))
-                            back = true;
-                        else
-                            System.out.println("Invalid ID!");
+                        int studID = in.nextInt();
+
+                        Student test = studentCsv.findStudentById(studID, students);
+                        if(studentCsv.findStudentById(studID, students) != null) {
+                            studentMainMenu(test);
+                        }
                     }
 
                     break;
                 case "2":
-                    System.out.println("Select what department **use 1 for testing purposes"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
+                    System.out.println("Select what department"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
                     while(!back) {
                         command = in.nextLine().toUpperCase();
-                        if (command.equals("1"))
-                            departmentMainMenu();
+                        if (command.equals("1")) {
+                            Department depart = new Department("Computer Science & Information Systems");
+                            departmentMainMenu(depart);
+                        }
                         else if (command.equals("BACK"))
                             back = true;
                         else
@@ -46,15 +58,14 @@ public class MenuApp {
                     }
                     break;
                 case "3":
-                    System.out.println("Log in using Faculty Name **use 1 for testing purposes");
+                    System.out.println("Log in using Faculty Name");
                     while(!back) {
-                        command = in.nextLine().toUpperCase();
-                        if (command.equals("1"))
-                            facultyMainMenu();
-                        else if (command.equals("BACK"))
-                            back = true;
-                        else
-                            System.out.println("Invalid ID!");
+                        String facID = in.nextLine().toUpperCase();
+
+                        Faculty test = facultyCsv.findFacultyByName(facID, faculties);
+                        if (facultyCsv.findFacultyByName(facID, faculties) != null) {
+                            facultyMainMenu(test);
+                        }
                     }
                     break;
                 default:
@@ -67,7 +78,7 @@ public class MenuApp {
     }//end run
 
 
-    public void studentMainMenu() {
+    public void studentMainMenu(Student studLogin) {
         boolean quitCon = false;
         while (!quitCon) {
             System.out.println("\n\nSTUDENT MENU\n 1) Transcript\n9) Quit");
@@ -75,7 +86,7 @@ public class MenuApp {
 
             switch (command) {
                 case "1":
-                    System.out.println("transcript WIP");
+                    System.out.println(studLogin.viewTranscript(studLogin));
                     break;
                 case "9":
                     System.out.println("STUDENT QUIT");
@@ -91,7 +102,7 @@ public class MenuApp {
 
 
 
-    public void departmentMainMenu() {
+    public void departmentMainMenu(Department department) {
         boolean quitCon = false;
         while (!quitCon) {
             System.out.println("\n\nDepartment MENU\n1) Exam Board\n9) Quit");
@@ -99,7 +110,7 @@ public class MenuApp {
 
             switch (command) {
                 case "1":
-                    departmentExamBoardMenu();
+                    departmentExamBoardMenu(department);
                     break;
                 case "9":
                     System.out.println("Department QUIT");
@@ -114,7 +125,7 @@ public class MenuApp {
     }
 
 
-    public void departmentExamBoardMenu(){
+    public void departmentExamBoardMenu(Department department){
         boolean back = false;
 
         while(!back){
@@ -125,15 +136,13 @@ public class MenuApp {
             switch (command) {
                 case "1":
                     System.out.println("Enter Year");
-                    String year = in.nextLine();
-                    System.out.println("Year " + year + " Entered");
+                    int year = in.nextInt();
+                    System.out.println(department.holdExamBoardForYear(year)); //idk if this works. it does output, but no data :|
                     break;
                 case "2":
-                    System.out.println("Enter Year");
-                    String semYear = in.nextLine();
-                    System.out.println("Year " + semYear + " Entered\n Enter Semester");
-                    String semester = in.nextLine();
-                    System.out.println("Semester " + semester + " Entered\nExam board for Year " + semYear + " Semester " + semester);
+                    System.out.println("Enter Semester");
+                    int semester = in.nextInt();
+                    System.out.println(department.holdExamBoardForSemester(semester)); //idk if this works. it does output, but no data :|
                     break;
                 case "9":
                     back = true;
@@ -147,18 +156,49 @@ public class MenuApp {
 
     }//end departmentGradeMenu
 
-    public void facultyMainMenu(){
+    public void facultyMainMenu(Faculty facID){
+        StudentCsv studentCsv = new StudentCsv();
+        ArrayList<Student> students = studentCsv.readStudents("Students.csv");
+
+        ModuleCsv moduleCsv = new ModuleCsv();
+        ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
+
+        ResultCsv resultCsv = new ResultCsv();
+        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
+
+
         boolean quitCon = false;
         while (!quitCon) {
             System.out.println("\n\nFaculty MENU\n1) Enter Grade\n2) Transcripts\n9) Quit");
             String command = in.nextLine().toUpperCase();
-
+            int studID = 0;
             switch (command) {
                 case "1":
-                    facultyResultsMenu();
+                    System.out.println("Enter Student ID\n");
+                    studID = in.nextInt();
+
+                    Student student = studentCsv.findStudentById(studID, students);
+                    if(studentCsv.findStudentById(studID, students) != null) {
+                        System.out.println("Enter Module");
+                        int module = in.nextInt();
+                        Module mod = new Module(, ,module,); // idk what to pass through here, nothings seems intuitive, unless we want user to type every detail.
+                        System.out.println("Enter Semester");// lord knows, i hope im wrong on this ^^^
+                        int semNum = in.nextInt();
+                        Semester semester = new Semester(semNum);
+                        System.out.println("Enter Grade (A1, A2, B2, ect)");
+                        String grade = in.nextLine().toUpperCase();
+                        Result result = new Result(mod,grade,semester);
+                        facID.submitResult(student,result); //not tested but should work in theory
+                    }
                     break;
                 case "2":
-                    facultyTranscriptMenu();
+                    System.out.println("Enter Student ID\n");
+                    studID = in.nextInt();
+
+                    student = studentCsv.findStudentById(studID, students);
+                    if(studentCsv.findStudentById(studID, students) != null) {
+                        System.out.println(student.viewTranscript(student));
+                    }
                     break;
                 case "9":
                     System.out.println("Faculty QUIT");
@@ -173,51 +213,4 @@ public class MenuApp {
 
     }///end fac main menu
 
-    public void facultyTranscriptMenu(){
-        boolean back = false;
-
-        while(!back){
-            System.out.println("\n\nFACULTY TRANSCRIPT MENU\n---\nENTER STUDENT ID");
-
-            String command = in.nextLine();
-            //looks for student id
-            //im guessing ToString here with transcript
-            System.out.println("STUDENT ID :" + command + "ENTERED");
-            back = true;
-            //i can try and error trap this but idk the actual commands to get student id atm :[
-        }//end while
-    }
-
-    public void facultyResultsMenu() {
-        boolean back = false;
-
-        while (!back) {
-            System.out.println("\n\nFACULTY TRANSCRIPT MENU\n---\nENTER STUDENT ID");
-
-            String id = in.nextLine();
-            System.out.println("STUDENT ID : " + id + " ENTERED\nENTER MODULE");
-
-            String module = in.nextLine();
-            System.out.println("MODULE : " + module + " ENTERED\nENTER YEAR");
-
-            String year = in.nextLine();
-            System.out.println("YEAR : " + year + " ENTERED\nENTER SEMESTER");
-
-            String semester = in.nextLine();
-            System.out.println("SEMESTER : " + semester + " ENTERED\nENTER GRADE");
-
-            String grade = in.nextLine();
-            System.out.println("GRADE : " + grade + " ENTERED\nSTUDENT "+id + " GRADE FOR MODULE " + module + " IN YEAR " + year + " SEMESTER " + semester + " HAS BEEN SET TO " + grade);
-
-
-            back = true;
-            //holy fuck this is gonna be hell trying to make sure errors dont exist in ahhhhhhh
-            // i can try and hope i can catch errors, but that might be a bit difficult :|
-            //You got this - Conor
-        }
-    }
 }//end menu app
-
-
-
-

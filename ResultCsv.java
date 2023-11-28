@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class ResultCsv {
     public ResultCsv(){}
 
-    public void readResults(String filepath, ArrayList<Module> bookOfModules, ArrayList<Student> students) {
+    public ArrayList<Result> readResults(String filepath, ArrayList<Module> bookOfModules, ArrayList<Student> students) {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
@@ -30,6 +30,7 @@ public class ResultCsv {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     public void writeResult(Student student, Result result, String filepath) {
