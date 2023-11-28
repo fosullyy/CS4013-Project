@@ -69,12 +69,12 @@ public class MenuApp {
     public void studentMainMenu() {
         boolean quitCon = false;
         while (!quitCon) {
-            System.out.println("\n\nSTUDENT MENU\n 1) Grades\n9) Quit");
+            System.out.println("\n\nSTUDENT MENU\n 1) Transcript\n9) Quit");
             String command = in.nextLine().toUpperCase();
 
             switch (command) {
                 case "1":
-                    studentGradeMenu();
+                    System.out.println("transcript WIP");
                     break;
                 case "9":
                     System.out.println("STUDENT QUIT");
@@ -90,34 +90,6 @@ public class MenuApp {
 
 
 
-    public void studentGradeMenu() {
-        boolean back = false;
-
-        while(!back){
-            System.out.println("\n\nSTUDENT GRADES MENU\n---\n1) View Grades (WIP)\n2)Get Transcript (WIP)\n9)Back");
-            String command = in.nextLine();
-
-
-            switch (command) {
-                case "1":
-                    System.out.println("grades WIP");
-                    break;
-                case "2":
-                    System.out.println("transcript WIP");
-                    break;
-                case "9":
-                    back = true;
-                    break;
-                default:
-                    System.out.println("ERROR TRAPPING");
-                    break;
-            }
-
-        }//end while
-
-    }//end studentGradeMenu
-
-
     public void departmentMainMenu() {
         boolean quitCon = false;
         while (!quitCon) {
@@ -127,9 +99,6 @@ public class MenuApp {
             switch (command) {
                 case "1":
                     departmentExamBoardMenu();
-                    break;
-                case "2":
-                    System.out.println("Department 2");
                     break;
                 case "9":
                     System.out.println("Department QUIT");
