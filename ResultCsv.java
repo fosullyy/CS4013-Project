@@ -8,6 +8,7 @@ public class ResultCsv {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] resultsData = line.split(",");
                 if (resultsData.length == 4) {
