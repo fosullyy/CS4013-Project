@@ -18,6 +18,7 @@ public class MenuApp {
         while (!menuTypeQuitCon) {
             System.out.println("1) STUDENT MENU\n2) DEPARTMENT MENU\n3) FACULTY MENU");
             String command = in.nextLine().toUpperCase();
+            back = false;
             switch (command) {
                 case "1":
                     System.out.println("Log in using Student ID **use 1 for testing purposes");
