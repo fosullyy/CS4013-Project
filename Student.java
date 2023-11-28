@@ -9,7 +9,7 @@ public class Student {
     private String programmeName;
     private Year[] years;
     private int numOfYears;
-    private ArrayList<Result> results;
+    private ArrayList<Result>  results;
 
     /**
      * Constructs Student object with its name, ID, programme, the year the student is currently in, and the student's results to date.
@@ -61,9 +61,9 @@ public class Student {
     /**
      * Sets the programme of the student.
      *
-     * @param programme The new programme of the student.
+     * @param programmeName The new programme of the student.
      */
-    public void setProgramme(String programmeName) {
+    public void setProgrammeName(String programmeName) {
         this.programmeName = programmeName;
     }
 
@@ -131,9 +131,8 @@ public class Student {
             return calculateQcaForYear(1);
         } else {
             double totalQCA = 0.0;
-            for (Year year : years) {
-                totalQCA += calculateQcaForYear(year.getYearNumber());
-                totalQCA = totalQCA - calculateQcaForYear(1);
+            for (int i = 1; i < years.length; i++) {
+                totalQCA += calculateQcaForYear(years[i].getYearNumber());
             }
 
             double toBeRounded = totalQCA / (years.length - 1);
