@@ -55,4 +55,14 @@ public class FacultyCsv {
 
         return faculties;
     }
+
+    public Faculty findFacultyByName(String name, ArrayList<Faculty> faculties) {
+        for (Faculty faculty : faculties) {
+            if (faculty.getName().equalsIgnoreCase(name)) {
+                return faculty;
+            }
+        }
+        System.out.println("Faculty member not found.");
+        return null;
+    }
 }

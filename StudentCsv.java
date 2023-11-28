@@ -41,7 +41,7 @@ public class StudentCsv {
                     students.add(student);
 
                     // The i += 5 Jumps the loop 5 positions ahead in the array so i doesnt repeat data
-                    for (int i = 4; i < studentData.length; i += 5) {
+                       /*for (int i = 4; i < studentData.length; i += 5) {
                         //Checks if there is results data for the student before reading file
                         if(i + 4 < studentData.length){
                             String departmentName = studentData[i].trim();
@@ -60,7 +60,7 @@ public class StudentCsv {
                         }else{
                             System.out.println("No results found for student " + line);
                         }
-                    }
+                    }*/
                 }else{
                     System.out.println("Student not found on line " + line);
                 }
@@ -116,6 +116,16 @@ public class StudentCsv {
         }
 
 
+    }
+
+    public Student findStudentById(int id, ArrayList<Student> students) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        System.out.println("Student not found.");
+        return null;
     }
 }
 
