@@ -5,9 +5,10 @@ public class Transcript {
 
     private Student student;
 
+
     /**
      * Constructs Transcript object which takes the student for whom the transcript is being generated.
-     * 
+     *
      * @param student The student who the transcript belongs to.
      */
     public Transcript(Student student) {
@@ -16,7 +17,7 @@ public class Transcript {
 
     /**
      * Gets the student who the transcript belongs to.
-     * 
+     *
      * @return The student who the transcript belongs to.
      */
     public Student getStudent() {
@@ -25,15 +26,14 @@ public class Transcript {
 
     /**
      * toString method which returns the student's transcript in a legible form.
-     * 
+     *
      * @return The student's transcript represented as a string.
      */
     @Override
     public String toString() {
         StringBuilder transcript = new StringBuilder();
         transcript.append(student.getName()).append("'s student transcript\nID: ").append(student.getId()).append("\n");
-
-        int semCount = 0;
+        transcript.append("Programme: ").append(student.getProgrammeName()).append("\n");
 
         for (int i = 0; i < student.getNumOfYears(); i++) {
             Year year = student.getYears()[i];
@@ -56,11 +56,21 @@ public class Transcript {
                         transcript.append(result.getModule().getModuleId()).append("\t")
                                 .append(result.getModule().getModuleName()).append("\t")
                                 .append(result.getModule().getCredits()).append("\t")
-                                .append(result.getGrade()).append("\n");
+                                .append(result.getGrade());
+
+                        if ((result.getGrade().equalsIgnoreCase("F"))
+                        || (result.getGrade().equalsIgnoreCase("NG"))
+                        || ((result.getGrade().equalsIgnoreCase("D1")) && (student.calculateQcaForSemester(semester.getSemNumber()) < 2.0))
+                        || ((result.getGrade().equalsIgnoreCase("D2")) && (student.calculateQcaForSemester(semester.getSemNumber()) < 2.0))) {
+                            transcript.append("\tModule has to be repeated.");
+                        } else if (((result.getGrade().equalsIgnoreCase("D1")) && (student.calculateQcaForSemester(semester.getSemNumber()) >= 2.0))
+                        || ((result.getGrade().equalsIgnoreCase("D2")) && (student.calculateQcaForSemester(semester.getSemNumber()) >= 2.0))) {
+                            transcript.append("\tPassing fail.");
+                        }
                     }
                 }
 
-                transcript.append("Semester ").append(semester.getSemNumber()).append(" QCA: ")
+                transcript.append("\nSemester ").append(semester.getSemNumber()).append(" QCA: ")
                         .append(semesterQca).append("\n");
 
                 if (j == 2) {
@@ -68,14 +78,12 @@ public class Transcript {
                     transcript.append("Year ").append(year.getYearNumber()).append(" QCA: ")
                             .append(yearQCA).append("\n");
                 }
-
-                semCount++;
             }
         }
 
         double overallQca = student.calculateQcaOverall();
         transcript.append("Overall QCA: ").append(overallQca).append("\n");
-        
+
         return transcript.toString();
     }
 }
