@@ -15,6 +15,7 @@ public class ModuleCsv {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] moduleData = line.split(",");
 
@@ -52,8 +53,8 @@ public class ModuleCsv {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
             for (Module module1 : module) {
                 writer.write(module1.getModuleName() + "," + module1.getModuleId() + "," + module1.getCredits() + "\n");
+                writer.close();
             }
-            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
