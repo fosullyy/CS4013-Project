@@ -70,7 +70,7 @@ public class Transcript {
                     }
                 }
 
-                transcript.append("Semester ").append(semester.getSemNumber()).append(" QCA: ")
+                transcript.append("\nSemester ").append(semester.getSemNumber()).append(" QCA: ")
                         .append(semesterQca).append("\n");
 
                 if (j == 2) {
