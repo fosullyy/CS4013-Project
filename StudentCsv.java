@@ -40,6 +40,7 @@ public class StudentCsv {
 
         try {
             reader = new BufferedReader(new FileReader(filepath));
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] studentData = line.split(",");
                 if (studentData.length >= 4) {
@@ -98,7 +99,7 @@ public class StudentCsv {
                 resultSemester = scanner.next();*/
                 if(!id.equals(idToRemove)){
                     pw.println(name + "," + id + "," + programmeName + "," + year + "," + moduleName + "," + moduleId + "," + moduleCredits + ","
-                    + grade + "," + resultYear + "," + resultSemester);
+                            + grade + "," + resultYear + "," + resultSemester);
                 }
             }
             scanner.close();
