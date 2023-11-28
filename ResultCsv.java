@@ -8,6 +8,7 @@ public class ResultCsv {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] resultsData = line.split(",");
                 if (resultsData.length == 4) {
@@ -35,7 +36,7 @@ public class ResultCsv {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
             writer.write(student.getId() + "," + result.getModule().getModuleId() + "," +
-                    result.getGrade() + "," + result.getSemester().getSemNumber());
+                    result.getGrade() + "," + result.getSemester().getSemNumber() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

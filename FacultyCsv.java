@@ -29,6 +29,7 @@ public class FacultyCsv {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] facultyData = line.split(",");
                 if (facultyData.length == 2) {

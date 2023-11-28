@@ -8,6 +8,12 @@ public class StudentCsv {
 
     }
 
+    /**
+     * Writes a list of student objects to a csv file
+     *
+     * @param student Student object to be written to file
+     * @param filepath The path of the csv file where the student information will be stored
+     */
     public void writeStudent(ArrayList<Student> student, String filepath) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
@@ -21,6 +27,12 @@ public class StudentCsv {
         }
     }
 
+    /**
+     * Reads student information and returns an arraylist of student objects
+     *
+     * @param filepath A csv file containing students
+     * @return An arraylist of student objects
+     */
     public ArrayList<Student> readStudents(String filepath) {
         ArrayList<Student>students = new ArrayList<>();
         BufferedReader reader;
@@ -28,6 +40,7 @@ public class StudentCsv {
 
         try {
             reader = new BufferedReader(new FileReader(filepath));
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] studentData = line.split(",");
                 if (studentData.length >= 4) {
@@ -50,8 +63,13 @@ public class StudentCsv {
         }
     }
 
-
-        public void deleteStudent(String filepath, String idToRemove){
+    /**
+     * Deletes a student information from csv file based on provided ID
+     *
+     * @param filepath  The path of the csv file storing student information
+     * @param idToRemove The ID of the student whose information is being deleted
+     */
+    public void deleteStudent(String filepath, String idToRemove){
 
         String tempFile = "temp.csv";
         File oldFile = new File(filepath);
@@ -61,6 +79,7 @@ public class StudentCsv {
         String moduleCredits = ""; String grade = ""; String resultYear = ""; String resultSemester = "";
         try{
             Scanner scanner = new Scanner(oldFile);
+            //Creates temp.csv file if it doesn't already exist
             FileWriter fw = new FileWriter(tempFile,true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
@@ -72,15 +91,15 @@ public class StudentCsv {
                 id = scanner.next();
                 programmeName = scanner.next();
                 year = scanner.next();
-                moduleName = scanner.next();
+                /*moduleName = scanner.next();
                 moduleId = scanner.next();
                 moduleCredits = scanner.next();
                 grade = scanner.next();
                 resultYear = scanner.next();
-                resultSemester = scanner.next();
+                resultSemester = scanner.next();*/
                 if(!id.equals(idToRemove)){
                     pw.println(name + "," + id + "," + programmeName + "," + year + "," + moduleName + "," + moduleId + "," + moduleCredits + ","
-                    + grade + "," + resultYear + "," + resultSemester);
+                            + grade + "," + resultYear + "," + resultSemester);
                 }
             }
             scanner.close();

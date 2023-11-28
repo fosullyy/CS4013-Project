@@ -15,6 +15,7 @@ public class ModuleCsv {
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] moduleData = line.split(",");
 
@@ -75,5 +76,5 @@ public class ModuleCsv {
         System.out.println("Module not found.");
         return null;
     }
-    
+
 }
