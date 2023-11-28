@@ -13,7 +13,7 @@ public class StudentCsv {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
             for (Student students : student) {
                 writer.write(students.getName() + "," + students.getId() + "," + students.getProgrammeName() + ","
-                        + students.getYears() + "," + students.getResults() + "\n");
+                        + students.getNumOfYears() + "," + students.getResults() + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -40,27 +40,6 @@ public class StudentCsv {
                     Student student = new Student(studentName, id, programme, year);
                     students.add(student);
 
-                    // The i += 5 Jumps the loop 5 positions ahead in the array so i doesnt repeat data
-                       /*for (int i = 4; i < studentData.length; i += 5) {
-                        //Checks if there is results data for the student before reading file
-                        if(i + 4 < studentData.length){
-                            String departmentName = studentData[i].trim();
-                            String moduleName = studentData[i + 1].trim();
-                            String moduleId = studentData[i + 2].trim();
-                            int moduleCredits = Integer.parseInt(studentData[i + 3].trim());
-                            String grade = studentData[i + 4].trim();
-                            int resultSemester = Integer.parseInt(studentData[i + 5].trim());
-
-                            Department department = new Department(departmentName);
-
-                            Module module = new Module(department, moduleName, moduleId, moduleCredits);
-
-                            Result result = new Result(module, grade, new Semester(resultSemester));
-                            student.addResult(result);
-                        }else{
-                            System.out.println("No results found for student " + line);
-                        }
-                    }*/
                 }else{
                     System.out.println("Student not found on line " + line);
                 }
@@ -126,6 +105,20 @@ public class StudentCsv {
         }
         System.out.println("Student not found.");
         return null;
+    }
+
+    public void addStudentsToDepartments(ArrayList<Student> students) {
+        for (Student student : students) {
+            for (Result result : student.getResults()) {
+                Module module = result.getModule();
+                if (module != null) {
+                    Department department = module.getDepartment();
+                    if (department != null) {
+                        department.addStudent(student);
+                    }
+                }
+            }
+        }
     }
 }
 

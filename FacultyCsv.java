@@ -38,8 +38,8 @@ public class FacultyCsv {
 
                     ArrayList<Module> modules = new ArrayList<>();
                     for (String moduleId : facultyModules) {
-                        CsvFile csvFile = new CsvFile();
-                        Module module = csvFile.findModuleById(moduleId, bookOfModules);
+                        ModuleCsv moduleCsv = new ModuleCsv();
+                        Module module = moduleCsv.findModuleById(moduleId, bookOfModules);
                         modules.add(module);
                     }
 
