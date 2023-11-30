@@ -69,7 +69,7 @@ public class Department {
      * @return The exam board represented as a string.
      */
     public String holdExamBoardForSemester(int semester) {
-        StringBuilder board = new StringBuilder("Exam board results for semester " + semester + ":\n");
+        StringBuilder board = new StringBuilder(getDepartmentName() + " exam board results for semester " + semester + ":\n");
 
         for (Student student : students) {
             double qca = student.calculateQcaForSemester(semester);
@@ -81,10 +81,10 @@ public class Department {
                         result.getGrade().equalsIgnoreCase("NG") ||
                         qca < 2.0) {
                     board.append("\tStudent is required to repeat.");
-                } else {
-                    board.append("\n");
                 }
             }
+
+            board.append("\n");
         }
 
         return board.toString();
@@ -97,7 +97,7 @@ public class Department {
      * @return The exam board represented as a string.
      */
     public String holdExamBoardForYear(int year) {
-        StringBuilder board = new StringBuilder("Exam board results for year " + year + ":\n");
+        StringBuilder board = new StringBuilder(getDepartmentName() + " exam board results for year " + year + ":\n");
 
         for (Student student : students) {
             double qca = student.calculateQcaForYear(year);
@@ -106,13 +106,14 @@ public class Department {
 
             for (Result result : student.getResults()) {
                 if (result.getGrade().equalsIgnoreCase("F") ||
-                        result.getGrade().equalsIgnoreCase("NG") ||
-                        qca < 2.0) {
-                    board.append("\tStudent is required to repeat.");
-                } else {
-                    board.append("\n");
+                        result.getGrade().equalsIgnoreCase("NG")) {
+                    board.append("\tStudent is required to repeat as they failed one or more modules.");
+                } else if (qca < 2.0) {
+                    board.append("\tStudent is required to repeat, their QCA is insufficient as it is below 2.0");
                 }
             }
+
+            board.append("\n");
         }
 
         return board.toString();
