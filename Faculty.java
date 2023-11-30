@@ -9,7 +9,7 @@ public class Faculty {
 
     /**
      * Constructs Faculty object with its name, department and modules.
-     *
+     *'8
      * @param name Name of the faculty member.
      * @param modules The modules the faculty member teaches in.
      */
@@ -70,7 +70,11 @@ public class Faculty {
      * @param result The result to be submitted.
      */
     public void submitResult(Student student, Result result) {
-        student.addResult(result);
+        if (modules.contains(result.getModule())) {
+            student.addResult(result);
+        } else {
+            System.out.println("You are not allowed to submit results for this module.");
+        }
     }
 
     /**
