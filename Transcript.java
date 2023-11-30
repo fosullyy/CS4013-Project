@@ -37,9 +37,9 @@ public class Transcript {
 
         for (int i = 0; i < student.getNumOfYears(); i++) {
             Year year = student.getYears()[i];
-            transcript.append("\nYear: ").append(year.getYearNumber()).append("\n:");
+            transcript.append("\nYear ").append(year.getYearNumber()).append(": \n");
 
-            for (int j = 0; j <= 2; j++) {
+            for (int j = 1; j <= 2; j++) {
                 Semester semester;
 
                 if (j == 1) {
@@ -67,6 +67,8 @@ public class Transcript {
                         || ((result.getGrade().equalsIgnoreCase("D2")) && (student.calculateQcaForSemester(semester.getSemNumber()) >= 2.0))) {
                             transcript.append("\tPassing fail.");
                         }
+
+                        transcript.append("\n");
                     }
                 }
 
@@ -75,7 +77,7 @@ public class Transcript {
 
                 if (j == 2) {
                     double yearQCA = student.calculateQcaForYear(year.getYearNumber());
-                    transcript.append("Year ").append(year.getYearNumber()).append(" QCA: ")
+                    transcript.append("\nYear ").append(year.getYearNumber()).append(" QCA: ")
                             .append(yearQCA).append("\n");
                 }
             }
