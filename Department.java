@@ -69,26 +69,9 @@ public class Department {
      * @return The exam board represented as a string.
      */
     public String holdExamBoardForSemester(int semester) {
-        StringBuilder board = new StringBuilder(getDepartmentName() + " exam board results for semester " + semester + ":\n");
-
-        for (Student student : students) {
-            double qca = student.calculateQcaForSemester(semester);
-
-            board.append("Student ID: ").append(student.getId()).append("\tQCA: ").append(qca);
-
-            for (Result result : student.getResults()) {
-                if (result.getGrade().equalsIgnoreCase("F") ||
-                        result.getGrade().equalsIgnoreCase("NG") ||
-                        qca < 2.0) {
-                    board.append("\tStudent is required to repeat.");
-                }
-            }
-
-            board.append("\n");
-        }
-
-        return board.toString();
+        return holdExamBoard(semester, "semester");
     }
+
 
     /**
      * Holds an exam board for the year to review progression by generating the QCA for each student and whether they are required to repeat as a result.
@@ -97,20 +80,44 @@ public class Department {
      * @return The exam board represented as a string.
      */
     public String holdExamBoardForYear(int year) {
-        StringBuilder board = new StringBuilder(getDepartmentName() + " exam board results for year " + year + ":\n");
+        return holdExamBoard(year, "year");
+    }
 
+    /**
+     * Helper method to implement logic that holds an exam board.
+     * @param period The number of either the semester or year for which the exam board is being held.
+     * @param periodType A string to represent the type of the period of time for which the exam board is being held, i.e. year or semester.
+     * @return The exam board represented as a string.
+     */
+    private String holdExamBoard(int period, String periodType) {
+        // Uses StringBuilder to append the exam board display as needed.
+        StringBuilder board = new StringBuilder(getDepartmentName() + " exam board results for " + periodType + " " + period + ":\n");
+
+        // Iterates through students in the department
         for (Student student : students) {
-            double qca = student.calculateQcaForYear(year);
+            double qca;
+            if (periodType.equals("semester")) {
+                qca = student.calculateQcaForSemester(period);
+            } else {
+                qca = student.calculateQcaForYear(period);
+            }
+            boolean repeatRequired = false;
 
+            // Displays the QCA of these students.
             board.append("Student ID: ").append(student.getId()).append("\tQCA: ").append(qca);
 
+            // Iterates through the result of each student in the department to determine whether they can progress without repeats.
             for (Result result : student.getResults()) {
-                if (result.getGrade().equalsIgnoreCase("F") ||
-                        result.getGrade().equalsIgnoreCase("NG")) {
+                if (result.getGrade().equalsIgnoreCase("F") || result.getGrade().equalsIgnoreCase("NG")) {
                     board.append("\tStudent is required to repeat as they failed one or more modules.");
-                } else if (qca < 2.0) {
-                    board.append("\tStudent is required to repeat, their QCA is insufficient as it is below 2.0");
+                    repeatRequired = true;  // Boolean to indicate a repeat is required.
+                    break;  // No need to check further if a repeat is already required.
                 }
+            }
+
+            // Check QCA after checking results
+            if (!repeatRequired && qca < 2.0) {
+                board.append("\tStudent is required to repeat, their QCA is insufficient as it is below 2.0");
             }
 
             board.append("\n");
