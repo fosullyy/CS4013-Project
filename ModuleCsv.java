@@ -11,7 +11,6 @@ public class ModuleCsv {
 
     public ArrayList<Module> readModules(String filepath) {
         ArrayList<Module> bookOfModules = new ArrayList<>();
-        Set<String> departments = new HashSet<>();
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
@@ -21,20 +20,11 @@ public class ModuleCsv {
 
                 if (moduleData.length == 4) {
                     String departmentName = moduleData[0].trim();
-
-                    // Check if the department already exists
-                    Department department;
-                    if (departments.contains(departmentName)) {
-                        department = new Department(departmentName);
-                    } else {
-                        department = new Department(departmentName);
-                        departments.add(departmentName);
-                    }
                     String moduleId = moduleData[1].trim();
                     String moduleName = moduleData[2].trim();
                     int credits = Integer.parseInt(moduleData[3].trim());
 
-                    Module module = new Module(department, moduleName, moduleId, credits);
+                    Module module = new Module(departmentName, moduleName, moduleId, credits);
                     bookOfModules.add(module);
                 } else {
                     System.out.print("No module found on line " + line);
