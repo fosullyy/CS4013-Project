@@ -27,7 +27,7 @@ public class Student {
         this.results = new ArrayList<>();
 
         for (int i = 0; i < numOfYears; i++) {
-            this.years[i] = new Year(i + 1);
+            this.years[i] = new Year(i + 1); // Years array is filled with year objects for how many years the student has attended, i.e. numOfYears.
         }
     }
 
@@ -126,50 +126,74 @@ public class Student {
         return new Transcript(student);
     }
 
+    /**
+     * Calculates the overall QCA for a student in UL.
+     *
+     * @return The overall QCA for a UL student.
+     */
     public double calculateQcaOverall() {
         if (years.length == 1) {
-            return calculateQcaForYear(1);
+            return calculateQcaForYear(1); // If the student has only attended for a year then their overall QCA is their QCA for that year.
         } else {
             double totalQCA = 0.0;
             for (int i = 1; i < years.length; i++) {
-                totalQCA += calculateQcaForYear(years[i].getYearNumber());
+                totalQCA += calculateQcaForYear(years[i].getYearNumber()); // Finds total QCA from the student's years of attendance, ignoring first year.
             }
 
-            double toBeRounded = totalQCA / (years.length - 1);
-            String roundedQca = String.format("%.2f", toBeRounded);
-            return Double.parseDouble(roundedQca);
+            double toBeRounded = totalQCA / (years.length - 1); // If the student has attended for more than one year, first year is ignored.
+            String roundedQca = String.format("%.2f", toBeRounded); // Formats the value to round it to two decimal places.
+            return Double.parseDouble(roundedQca); // Returns rounded QCA.
         }
     }
 
+    /**
+     * Calculates the QCA for a semester for a UL student.
+     *
+     * @param semester The semester for which the QCA is being calculated.
+     * @return The student's QCA for that semester.
+     */
     public double calculateQcaForSemester(int semester) {
-        ArrayList<String> grades = new ArrayList<>();
+        ArrayList<String> grades = new ArrayList<>(); // Initialises ArrayList with the grades for which QCA is being calculated.
 
         for (Result result : results) {
             if (result.getSemester().getSemNumber() == semester) {
-                grades.add(result.getGrade());
+                grades.add(result.getGrade()); // Iterates through the results of the student for that semester and adds their grades to the ArrayList.
             }
         }
 
-        return calculateQca(grades);
+        return calculateQca(grades); // Returns requested QCA.
     }
 
+    /**
+     * Calculates the QCA for a year for a UL student.
+     *
+     * @param year The year for which the QCA is being calculated.
+     * @return The student's QCA for that year.
+     */
     public double calculateQcaForYear(int year) {
-        ArrayList<String> grades = new ArrayList<>();
+        ArrayList<String> grades = new ArrayList<>(); // Initialises ArrayList with the grades for which QCA is being calculated.
 
         for (Result result : results) {
             if (result.getSemester().getYearNumber() == year) {
-                grades.add(result.getGrade());
+                grades.add(result.getGrade()); // Iterates through the results of the student for that year and adds their grades to the ArrayList.
             }
         }
 
-        return calculateQca(grades);
+        return calculateQca(grades); // Returns requested QCA.
     }
 
-    public double calculateQca(ArrayList<String> grades) {
-        double total = 0.0;
-        int moduleNumber = grades.size();
+    /**
+     * Helper method that tallies the student's QCA total depending on the grades they got and returns their QCA.
+     *
+     * @param grades The grades for which QCA is being calculated.
+     * @return The student's QCA based on the grades.
+     */
+    private double calculateQca(ArrayList<String> grades) {
+        double total = 0.0; // Initialises total QCA.
+        int moduleNumber = grades.size(); // Number of modules within the time period.
 
         for (String grade : grades) {
+            // Uses a switch case loop to add the grade's corresponding QCA value to total.
             switch (grade.toUpperCase()) {
                 case "A1":
                     total += 4.0;
@@ -207,8 +231,8 @@ public class Student {
             }
         }
 
-        double qca = total / moduleNumber;
-        String roundedQca = String.format("%.2f", qca);
-        return Double.parseDouble(roundedQca);
+        double qca = total / moduleNumber; // Averages the total by the number of modules.
+        String roundedQca = String.format("%.2f", qca); // Formats the value to round it to two decimal places.
+        return Double.parseDouble(roundedQca); // Returns the rounded QCA.
     }
 }
