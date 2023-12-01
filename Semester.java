@@ -10,7 +10,7 @@ public class Semester {
      * @param semNumber The number of the semester which is determined linearly, i.e. semester 1 of year 2 would be semester 3.
      */
     public Semester(int semNumber) {
-        this.yearNumber = (semNumber + 1) / 2;
+        this.yearNumber = (semNumber + 1) / 2; // Year number of the semester is calculated from the semester number.
         this.semNumber = semNumber;
     }
 
