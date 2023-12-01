@@ -71,9 +71,9 @@ public class Faculty {
      */
     public void submitResult(Student student, Result result) {
         if (modules.contains(result.getModule())) {
-            student.addResult(result);
+            student.addResult(result); // Adds result to student's results array if the faculty teaches this module.
         } else {
-            System.out.println("You are not allowed to submit results for this module.");
+            System.out.println("You are not allowed to submit results for this module."); //Otherwise faculty will be informed they are unable to do so.
         }
     }
 
