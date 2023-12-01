@@ -2,7 +2,7 @@
  * Represents a module of UL.
  */
 public class Module {
-    private Department department;
+    private String departmentName;
     private String moduleName;
     private String moduleId;
     private int credits;
@@ -10,13 +10,13 @@ public class Module {
     /**
      * Constructs Module object, with its name, ID and credits.
      *
-     * @param department Department of the module.
+     * @param departmentName Department of the module.
      * @param moduleName Name of the module.
      * @param moduleId ID of the module.
      * @param credits Credits of the module.
      */
-    public Module(Department department, String moduleName, String moduleId, int credits) {
-        this.department = department;
+    public Module(String departmentName, String moduleName, String moduleId, int credits) {
+        this.departmentName = departmentName;
         this.moduleName = moduleName;
         this.moduleId = moduleId;
         this.credits = credits;
@@ -27,8 +27,8 @@ public class Module {
      *
      * @return The department of the module.
      */
-    public Department getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
     /**
