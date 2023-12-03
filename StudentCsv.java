@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class StudentCsv {
 
@@ -64,58 +63,12 @@ public class StudentCsv {
     }
 
     /**
-     * Deletes a student information from csv file based on provided ID
+     * Finds a student by their ID in a list of students
      *
-     * @param filepath  The path of the csv file storing student information
-     * @param idToRemove The ID of the student whose information is being deleted
+     * @param id The ID of student to be found
+     * @param students The list of students to search within
+     * @return The student object with the specified ID if found, if not found null
      */
-    public void deleteStudent(String filepath, String idToRemove){
-
-        String tempFile = "temp.csv";
-        File oldFile = new File(filepath);
-        File newFile = new File(tempFile);
-        //Not final
-        String name = ""; String id = ""; String programmeName = ""; String year = ""; String moduleName = ""; String moduleId = "";
-        String moduleCredits = ""; String grade = ""; String resultYear = ""; String resultSemester = "";
-        try{
-            Scanner scanner = new Scanner(oldFile);
-            //Creates temp.csv file if it doesn't already exist
-            FileWriter fw = new FileWriter(tempFile,true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            //Knows a new term or data is after new line \n or ,
-            scanner.useDelimiter("[,\n]");
-
-            while(scanner.hasNext()){
-                name = scanner.next();
-                id = scanner.next();
-                programmeName = scanner.next();
-                year = scanner.next();
-                /*moduleName = scanner.next();
-                moduleId = scanner.next();
-                moduleCredits = scanner.next();
-                grade = scanner.next();
-                resultYear = scanner.next();
-                resultSemester = scanner.next();*/
-                if(!id.equals(idToRemove)){
-                    pw.println(name + "," + id + "," + programmeName + "," + year + "," + moduleName + "," + moduleId + "," + moduleCredits + ","
-                            + grade + "," + resultYear + "," + resultSemester);
-                }
-            }
-            scanner.close();
-            pw.flush();
-            pw.close();
-            oldFile.delete();
-            File dump = new File(filepath);
-            newFile.renameTo(dump);
-        }catch (IOException e){
-            e.printStackTrace();
-
-        }
-
-
-    }
-
     public Student findStudentById(int id, ArrayList<Student> students) {
         for (Student student : students) {
             if (student.getId() == id) {
@@ -126,18 +79,5 @@ public class StudentCsv {
         return null;
     }
 
-    public void addStudentsToDepartments(ArrayList<Student> students) {
-        for (Student student : students) {
-            for (Result result : student.getResults()) {
-                Module module = result.getModule();
-                if (module != null) {
-                    Department department = module.getDepartment();
-                    if (department != null) {
-                        department.addStudent(student);
-                    }
-                }
-            }
-        }
-    }
 }
 
