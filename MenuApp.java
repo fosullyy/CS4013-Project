@@ -6,6 +6,7 @@ public class MenuApp {
     private Scanner in;
 
     public MenuApp() {
+
         in = new Scanner(System.in);
     }
 
@@ -69,7 +70,7 @@ public class MenuApp {
                     }
                     break;
                 default:
-                    System.out.println("ERROR TRAPPING");
+                    System.out.println("Invalid Option!");
                     break;
 
             }//end menu sel switch
@@ -117,7 +118,7 @@ public class MenuApp {
                     quitCon = true;
                     System.exit(0);
                 default:
-                    System.out.println("Department ERROR TRAPPING");
+                    System.out.println("Invalid Option!");
                     break;
 
             }//end department switch
@@ -126,6 +127,16 @@ public class MenuApp {
 
 
     public void departmentExamBoardMenu(Department department){
+        ModuleCsv moduleCsv = new ModuleCsv();
+        StudentCsv studentCsv = new StudentCsv();
+        FacultyCsv facultyCsv = new FacultyCsv();
+        ResultCsv resultCsv = new ResultCsv();
+
+        ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
+        ArrayList<Student> students = studentCsv.readStudents("Students.csv");
+        ArrayList<Faculty> faculties = facultyCsv.readFaculty("Faculty.csv", modules);
+        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
+
         boolean back = false;
 
         while(!back){
@@ -137,18 +148,18 @@ public class MenuApp {
                 case "1":
                     System.out.println("Enter Year");
                     int year = in.nextInt();
-                    System.out.println(department.holdExamBoardForYear(year)); //idk if this works. it does output, but no data :|
+                    System.out.println(department.holdExamBoardForYear(year));
                     break;
                 case "2":
                     System.out.println("Enter Semester");
                     int semester = in.nextInt();
-                    System.out.println(department.holdExamBoardForSemester(semester)); //idk if this works. it does output, but no data :|
+                    System.out.println(department.holdExamBoardForSemester(semester));
                     break;
                 case "9":
                     back = true;
                     break;
                 default:
-                    System.out.println("ERROR TRAPPING");
+                    System.out.println("Invalid Option!");
                     break;
             }
 
@@ -180,9 +191,9 @@ public class MenuApp {
                     Student student = studentCsv.findStudentById(studID, students);
                     if(studentCsv.findStudentById(studID, students) != null) {
                         System.out.println("Enter Module");
-                        int module = in.nextInt();
-                        Module mod = new Module(, ,module,); // idk what to pass through here, nothings seems intuitive, unless we want user to type every detail.
-                        System.out.println("Enter Semester");// lord knows, i hope im wrong on this ^^^
+                        String module = in.nextLine();
+                        Module mod = moduleCsv.findModuleById(module, modules);
+                        System.out.println("Enter Semester");
                         int semNum = in.nextInt();
                         Semester semester = new Semester(semNum);
                         System.out.println("Enter Grade (A1, A2, B2, ect)");
@@ -205,7 +216,7 @@ public class MenuApp {
                     quitCon = true;
                     System.exit(0);
                 default:
-                    System.out.println("Faculty ERROR TRAPPING");
+                    System.out.println("Invalid Option!");
                     break;
 
             }//end faculty switch
