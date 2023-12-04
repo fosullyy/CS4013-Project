@@ -24,7 +24,7 @@ public class MenuApp {
         ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
         ArrayList<Student> students = studentCsv.readStudents("Students.csv");
         ArrayList<Faculty> faculties = facultyCsv.readFaculty("Faculty.csv", modules);
-        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
+        resultCsv.readResults("Results.csv", modules, students);
         ArrayList<Department> departments = departmentCsv.readAndFillDepartments(students, "Departments.csv");
         while (!menuTypeQuitCon) {
             System.out.println("1) STUDENT MENU\n2) DEPARTMENT MENU\n3) FACULTY MENU");
@@ -45,13 +45,8 @@ public class MenuApp {
                     break;
                 case "2":
                     back = false;
-                    System.out.println("Select what department. \"list\" for the list of departments"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
-                    while(!back) {
-                        command = in.nextLine();
-                        if (command.equals("BACK"))
-                            back = true;
-                        else if (command.equals("list") )
-                            System.out.println("""
+                    System.out.println("Select what department from the following list of departments\n");
+                    System.out.println("""
                                     Accounting and Finance | Architechture and Product Design | Arts Humanities and Social Sciences
                                     Biological Sciences | Business | Centre for Teaching and Learning
                                     Chemical Sciences | Computer Science & Information Systems | Coop Office UL
@@ -65,9 +60,15 @@ public class MenuApp {
                                     School of English Irish and Communication | School of Medicine | School of Modern Languages and Applied Linguistics
                                     Science and Engineering | Sociology | Student Affairs UL | Work & Employment Studies
                                     """);
-                        Department depart = departmentCsv.findDepartmentByName(command, departments);
-                        if(departmentCsv.findDepartmentByName(command, departments) != null)
-                            departmentMainMenu(depart);
+                    while(!back) {
+                        command = in.nextLine();
+                        if (command.equals("BACK"))
+                            back = true;
+                        else {
+                            Department depart = departmentCsv.findDepartmentByName(command, departments);
+                            if (departmentCsv.findDepartmentByName(command, departments) != null)
+                                departmentMainMenu(depart);
+                        }
                     }
 
                     break;
@@ -144,11 +145,13 @@ public class MenuApp {
         StudentCsv studentCsv = new StudentCsv();
         FacultyCsv facultyCsv = new FacultyCsv();
         ResultCsv resultCsv = new ResultCsv();
+        DepartmentCsv departmentCsv = new DepartmentCsv();
 
         ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
         ArrayList<Student> students = studentCsv.readStudents("Students.csv");
         ArrayList<Faculty> faculties = facultyCsv.readFaculty("Faculty.csv", modules);
-        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
+        resultCsv.readResults("Results.csv", modules, students);
+        ArrayList<Department> departments = departmentCsv.readAndFillDepartments(students, "Departments.csv");
 
         boolean back = false;
 
@@ -161,12 +164,16 @@ public class MenuApp {
                 case "1":
                     System.out.println("Enter Year");
                     int year = in.nextInt();
-                    department.holdExamBoardForYear(year);
+                    in.nextLine(); // Consume the newline character
+                    System.out.println("Year entered: " + year);
+                    System.out.println(department.holdExamBoardForYear(year));
                     break;
                 case "2":
                     System.out.println("Enter Semester");
                     int semester = in.nextInt();
-                    department.holdExamBoardForSemester(semester);
+                    in.nextLine(); // Consume the newline character
+                    System.out.println("Semester entered: " + semester);
+                    System.out.println(department.holdExamBoardForSemester(semester));
                     break;
                 case "9":
                     back = true;
@@ -188,7 +195,7 @@ public class MenuApp {
         ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
 
         ResultCsv resultCsv = new ResultCsv();
-        ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
+        resultCsv.readResults("Results.csv", modules, students);
 
 
         boolean quitCon = false;
