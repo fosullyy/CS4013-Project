@@ -1,14 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ModuleCsv {
 
     public ModuleCsv() {
     }
 
-
+    /**
+     * Reads and processes module data from a csv file and returns a list of module object
+     *
+     * @param filepath The path to the csv file containing module data
+     * @return An arraylist containing the processed module objects
+     */
     public ArrayList<Module> readModules(String filepath) {
         ArrayList<Module> bookOfModules = new ArrayList<>();
         String line;
@@ -37,7 +40,11 @@ public class ModuleCsv {
         return bookOfModules;
     }
 
-
+    /**
+     * Writes a list of module objects to a csv file specified by the filepath
+     * @param module the list of module objects to be written into a csv file
+     * @param filepath The path of to the csv file where the module data will be stored
+     */
     public void writeModules(ArrayList<Module> module, String filepath) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));

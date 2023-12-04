@@ -4,6 +4,13 @@ import java.util.ArrayList;
 public class ResultCsv {
     public ResultCsv(){}
 
+    /**
+     * Reads and processes results data from a csv file and updates the list of students with their results.
+     * @param filepath The path to the csv file containing results data
+     * @param bookOfModules The list of all available modules for reference
+     * @param students The list of students to be updated with results
+     * @return An Arraylist<Result> Containing the results or null</Result>
+     */
     public ArrayList<Result> readResults(String filepath, ArrayList<Module> bookOfModules, ArrayList<Student> students) {
         String line;
 
@@ -33,6 +40,12 @@ public class ResultCsv {
         return null;
     }
 
+    /**
+     * Writes a student results to a csv file specified by the filepath
+     * @param student The student whose results are to be written to the csv file
+     * @param result The result to be written to the csv file
+     * @param filepath The path to the csv file where the data will be stored
+     */
     public void writeResult(Student student, Result result, String filepath) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));

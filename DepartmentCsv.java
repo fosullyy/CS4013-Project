@@ -8,7 +8,14 @@ public class DepartmentCsv {
     public DepartmentCsv() {
 
     }
-
+    /**
+     * Reads department data from a CSV file, creates Department objects, and associates students with their respective departments.
+     *
+     * @param students The list of Student objects for which departments need to be determined.
+     * @param filepath The path to the CSV file containing department data.
+     * @return An ArrayList containing the processed department objects with associated students.
+     *
+     */
     public ArrayList<Department> readAndFillDepartments(ArrayList<Student> students, String filepath) {
         ArrayList<Department> departments = new ArrayList<>();
         BufferedReader reader;
@@ -42,7 +49,13 @@ public class DepartmentCsv {
 
         return departments;
     }
-
+    /**
+     * Finds a department by its name in a list of departments.
+     *
+     * @param name The name of the department to be found.
+     * @param departments The list of departments to search within.
+     * @return The department object with the specified name if found, otherwise null.
+     */
     public Department findDepartmentByName(String name, ArrayList<Department> departments) {
         for (Department department : departments) {
             if (department.getDepartmentName().equalsIgnoreCase(name)) {
