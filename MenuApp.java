@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,8 +13,7 @@ public class MenuApp {
     /**
      * Runs the system.
      */
-    public void run() { //TODO fail case for department select, exam board, set grade for faculty and something else im forgetting about
-        boolean menuType = true;
+    public void run() { //TODO exam board, set grade for faculty and something else im forgetting about
         boolean menuTypeQuitCon = false;
         boolean back = false;
         ModuleCsv moduleCsv = new ModuleCsv();
@@ -45,7 +44,8 @@ public class MenuApp {
 
                     break;
                 case "2":
-                    System.out.println("Select what department"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
+                    back = false;
+                    System.out.println("Select what department. \"list\" for the list of departments"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
                     while(!back) {
                         command = in.nextLine();
                         if (command.equals("BACK"))
@@ -66,7 +66,8 @@ public class MenuApp {
                                     Science and Engineering | Sociology | Student Affairs UL | Work & Employment Studies
                                     """);
                         Department depart = departmentCsv.findDepartmentByName(command, departments);
-                        departmentMainMenu(depart);
+                        if(departmentCsv.findDepartmentByName(command, departments) != null)
+                            departmentMainMenu(depart);
                     }
 
                     break;
@@ -75,9 +76,9 @@ public class MenuApp {
                     while(!back) {
                         String facID = in.nextLine().toUpperCase();
 
-                        Faculty test = facultyCsv.findFacultyByName(facID, faculties);
+                        Faculty fact = facultyCsv.findFacultyByName(facID, faculties);
                         if (facultyCsv.findFacultyByName(facID, faculties) != null) {
-                            facultyMainMenu(test);
+                            facultyMainMenu(fact);
                         }
                     }
                     break;
