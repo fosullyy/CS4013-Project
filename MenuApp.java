@@ -207,19 +207,20 @@ public class MenuApp {
                 case "1":
                     System.out.println("Enter Student ID\n");
                     studID = in.nextInt();
-
+                    in.nextLine(); // Consume the newline character
                     Student student = studentCsv.findStudentById(studID, students);
-                    if(studentCsv.findStudentById(studID, students) != null) {
+                    if (student != null) {
                         System.out.println("Enter Module");
                         String module = in.nextLine();
                         Module mod = moduleCsv.findModuleById(module, modules);
                         System.out.println("Enter Semester");
                         int semNum = in.nextInt();
+                        in.nextLine(); // Consume the newline character
                         Semester semester = new Semester(semNum);
-                        System.out.println("Enter Grade (A1, A2, B2, ect)");
+                        System.out.println("Enter Grade (A1, A2, B2, etc)");
                         String grade = in.nextLine().toUpperCase();
-                        Result result = new Result(mod,grade,semester);
-                        facID.submitResult(student,result); //not tested but should work in theory
+                        Result result = new Result(mod, grade, semester);
+                        facID.submitResult(student, result);
                     }
                     break;
                 case "2":
