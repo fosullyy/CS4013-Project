@@ -13,7 +13,7 @@ public class MenuApp {
     /**
      * Runs the system.
      */
-    public void run() {
+    public void run() { //TODO fail case for department select, exam board, set grade for faculty and something else im forgetting about
         boolean menuType = true;
         boolean menuTypeQuitCon = false;
         boolean back = false;
@@ -21,12 +21,12 @@ public class MenuApp {
         StudentCsv studentCsv = new StudentCsv();
         FacultyCsv facultyCsv = new FacultyCsv();
         ResultCsv resultCsv = new ResultCsv();
-
+        DepartmentCsv departmentCsv = new DepartmentCsv();
         ArrayList<Module> modules = moduleCsv.readModules("BookOfModulesDepartments.csv");
         ArrayList<Student> students = studentCsv.readStudents("Students.csv");
         ArrayList<Faculty> faculties = facultyCsv.readFaculty("Faculty.csv", modules);
         ArrayList<Result> results = resultCsv.readResults("Results.csv", modules, students);
-
+        ArrayList<Department> departments = departmentCsv.readAndFillDepartments(students, "Departments.csv");
         while (!menuTypeQuitCon) {
             System.out.println("1) STUDENT MENU\n2) DEPARTMENT MENU\n3) FACULTY MENU");
             String command = in.nextLine();
@@ -47,16 +47,28 @@ public class MenuApp {
                 case "2":
                     System.out.println("Select what department"); //There are 37 depts. i can list them manually in interveils of 9 if needed. will be annoying but possible
                     while(!back) {
-                        command = in.nextLine().toUpperCase();
-                        if (command.equals("1")) {
-                            Department depart = new Department("Computer Science & Information Systems");
-                            departmentMainMenu(depart);
-                        }
-                        else if (command.equals("BACK"))
+                        command = in.nextLine();
+                        if (command.equals("BACK"))
                             back = true;
-                        else
-                            System.out.println("Invalid ID!");
+                        else if (command.equals("list") )
+                            System.out.println("""
+                                    Accounting and Finance | Architechture and Product Design | Arts Humanities and Social Sciences
+                                    Biological Sciences | Business | Centre for Teaching and Learning
+                                    Chemical Sciences | Computer Science & Information Systems | Coop Office UL
+                                    EDUCATIONAL PSYCHOLOGY INCLUSIVE AND SPECIAL EDUCATION | Economics | Education and Health Sciences
+                                    Electronic & Computer Engineering | Exchange | History
+                                    Interfaculty | Irish World Academy Of Music and Dance (IWAMD) | Law
+                                    Management and Marketing | Mathematics & Statistics | Nursing & Midwifery
+                                    Physical Education & Sport Sciences | Physics | Politics and Public Admin
+                                    President's Office UL | Primary Level Education | Psychology
+                                    School of Allied Health | School of Education | School of Engineering
+                                    School of English Irish and Communication | School of Medicine | School of Modern Languages and Applied Linguistics
+                                    Science and Engineering | Sociology | Student Affairs UL | Work & Employment Studies
+                                    """);
+                        Department depart = departmentCsv.findDepartmentByName(command, departments);
+                        departmentMainMenu(depart);
                     }
+
                     break;
                 case "3":
                     System.out.println("Log in using Faculty Name");
@@ -148,12 +160,12 @@ public class MenuApp {
                 case "1":
                     System.out.println("Enter Year");
                     int year = in.nextInt();
-                    System.out.println(department.holdExamBoardForYear(year));
+                    department.holdExamBoardForYear(year);
                     break;
                 case "2":
                     System.out.println("Enter Semester");
                     int semester = in.nextInt();
-                    System.out.println(department.holdExamBoardForSemester(semester));
+                    department.holdExamBoardForSemester(semester);
                     break;
                 case "9":
                     back = true;
